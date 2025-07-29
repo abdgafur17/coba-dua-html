@@ -5,470 +5,222 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Keuangan</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #6a89cc;
-            --secondary: #4a69bd;
-            --success: #78e08f;
-            --danger: #e55039;
-            --warning: #f6b93b;
-            --light: #f8f9fa;
-            --dark: #2c3e50;
-            --soft-blue: #e3f2fd;
-            --soft-green: #e8f5e9;
-            --soft-yellow: #fffde7;
-            --soft-purple: #f3e5f5;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
         body {
-            background: linear-gradient(135deg, var(--soft-blue), var(--soft-purple));
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
             padding: 20px;
-            color: var(--dark);
+            background: linear-gradient(135deg, #f0f4f8, #e0e7ee); /* Soft gradient background */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 900px;
+            margin-bottom: 20px;
+            text-align: center;
         }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+        h1 {
+            color: #4a69bd;
+            margin-bottom: 25px;
+            font-size: 2.2em;
         }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo i {
-            font-size: 2.5rem;
-            color: var(--secondary);
-        }
-
-        .logo h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--secondary), var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        nav ul {
-            display: flex;
-            gap: 25px;
-            list-style: none;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            padding: 8px 15px;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover, nav a.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .stats {
+        .summary-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
-
-        .stat-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease;
+        .summary-card {
+            background-color: #e8f0fe;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            text-align: left;
         }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-card.income {
-            border-top: 4px solid var(--success);
-        }
-
-        .stat-card.expense {
-            border-top: 4px solid var(--danger);
-        }
-
-        .stat-card.debt {
-            border-top: 4px solid var(--warning);
-        }
-
-        .stat-card.balance {
-            border-top: 4px solid var(--primary);
-        }
-
-        .stat-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            color: #555;
-        }
-
-        .stat-title i {
-            font-size: 1.5rem;
-        }
-
-        .stat-amount {
-            font-size: 2.2rem;
-            font-weight: 700;
+        .summary-card h2 {
+            color: #5b7fb7;
+            margin-top: 0;
+            font-size: 1.3em;
             margin-bottom: 10px;
         }
-
-        .stat-info {
-            color: #777;
-            font-size: 0.9rem;
+        .summary-card p {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #333;
         }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-        }
-
-        .chart-container {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            min-height: 400px;
+        .buttons-container {
             display: flex;
-            flex-direction: column;
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .chart-header h2 {
-            font-size: 1.5rem;
-            color: var(--dark);
-        }
-
-        .actions {
-            display: flex;
+            justify-content: center;
             gap: 15px;
-            margin-top: auto;
-            padding-top: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
         }
-
         .btn {
-            padding: 12px 25px;
-            border-radius: 30px;
+            background-color: #6a9acb;
+            color: white;
             border: none;
-            font-weight: 600;
+            padding: 12px 25px;
+            border-radius: 8px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-success {
-            background: var(--success);
-            color: white;
-        }
-
         .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background-color: #507fb3;
+            transform: translateY(-2px);
         }
-
-        .recent-transactions {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        .btn-secondary {
+            background-color: #92b8da;
         }
-
-        .transactions-header {
+        .btn-secondary:hover {
+            background-color: #7ba6cb;
+        }
+        #chartContainer {
+            margin-top: 30px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 600px; /* Max width for the chart */
+            box-sizing: border-box;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .transaction-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 30px 0;
-            color: #777;
-        }
-
-        .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: #ddd;
-        }
-
-        .transaction-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-radius: 10px;
-            background: #f9f9f9;
-        }
-
-        .transaction-item:nth-child(odd) {
-            background: #f0f7ff;
-        }
-
-        .transaction-info {
-            display: flex;
             flex-direction: column;
         }
-
-        .transaction-title {
-            font-weight: 600;
-            margin-bottom: 5px;
+        canvas {
+            max-width: 100%;
+            height: auto;
         }
-
-        .transaction-date {
-            font-size: 0.8rem;
-            color: #777;
+        #fileInput {
+            display: none; /* Hide the default file input */
         }
-
-        .transaction-amount {
-            font-weight: 700;
-        }
-
-        .income-amount {
-            color: var(--success);
-        }
-
-        .expense-amount {
-            color: var(--danger);
-        }
-
-        .debt-amount {
-            color: var(--warning);
-        }
-
         .notification {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 10px;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50; /* Green */
             color: white;
-            font-weight: 500;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
             z-index: 1000;
-            transform: translateX(200%);
-            transition: transform 0.5s ease;
         }
-
         .notification.show {
-            transform: translateX(0);
-        }
-
-        .notification.success {
-            background: var(--success);
-        }
-
-        .notification.error {
-            background: var(--danger);
-        }
-
-        .notification.warning {
-            background: var(--warning);
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px 0;
-            color: #555;
-            margin-top: 50px;
-            border-top: 1px solid rgba(0,0,0,0.1);
-        }
-
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            
-            header {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
+            opacity: 1;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fas fa-money-bill-wave"></i>
-                <h1>FinTrack</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#" class="active">Dashboard</a></li>
-                    <li><a href="detail.html">Transaksi</a></li>
-                </ul>
-            </nav>
-        </header>
+        <h1>Dashboard Keuangan Anda</h1>
 
-        <div class="stats">
-            <div class="stat-card income">
-                <div class="stat-title">
-                    <i class="fas fa-arrow-down"></i>
-                    <h3>Pemasukan</h3>
-                </div>
-                <div class="stat-amount">Rp 0</div>
-                <div class="stat-info">Belum ada data pemasukan</div>
+        <div class="summary-grid">
+            <div class="summary-card">
+                <h2>Total Pemasukan</h2>
+                <p id="totalPemasukan">Rp 0</p>
             </div>
-            
-            <div class="stat-card expense">
-                <div class="stat-title">
-                    <i class="fas fa-arrow-up"></i>
-                    <h3>Pengeluaran</h3>
-                </div>
-                <div class="stat-amount">Rp 0</div>
-                <div class="stat-info">Belum ada data pengeluaran</div>
+            <div class="summary-card">
+                <h2>Total Pengeluaran</h2>
+                <p id="totalPengeluaran">Rp 0</p>
             </div>
-            
-            <div class="stat-card debt">
-                <div class="stat-title">
-                    <i class="fas fa-hand-holding-usd"></i>
-                    <h3>Hutang</h3>
-                </div>
-                <div class="stat-amount">Rp 0</div>
-                <div class="stat-info">Belum ada data hutang</div>
+            <div class="summary-card">
+                <h2>Total Utang</h2>
+                <p id="totalUtang">Rp 0</p>
             </div>
-            
-            <div class="stat-card balance">
-                <div class="stat-title">
-                    <i class="fas fa-wallet"></i>
-                    <h3>Saldo</h3>
-                </div>
-                <div class="stat-amount">Rp 0</div>
-                <div class="stat-info">Saldo saat ini</div>
+            <div class="summary-card">
+                <h2>Saldo Akhir</h2>
+                <p id="saldoAkhir">Rp 0</p>
             </div>
         </div>
 
-        <div class="main-content">
-            <div class="chart-container">
-                <div class="chart-header">
-                    <h2>Ringkasan Keuangan</h2>
-                    <div class="time-filter">
-                        <select>
-                            <option>Bulan Ini</option>
-                            <option>3 Bulan Terakhir</option>
-                            <option>Tahun Ini</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <canvas id="financeChart"></canvas>
-                <div class="empty-state" id="emptyChart" style="display: none;">
-                    <i class="fas fa-chart-pie"></i>
-                    <h3>Belum Ada Data</h3>
-                    <p>Tambahkan transaksi untuk melihat ringkasan keuangan</p>
-                </div>
-                
-                <div class="actions">
-                    <button class="btn btn-primary" id="exportBtn">
-                        <i class="fas fa-file-export"></i> Export Data
-                    </button>
-                    <button class="btn btn-success" id="importBtn">
-                        <i class="fas fa-file-import"></i> Import Data
-                    </button>
-                </div>
-            </div>
-            
-            <div class="recent-transactions">
-                <div class="transactions-header">
-                    <h2>Transaksi Terakhir</h2>
-                    <a href="detail.html">Lihat Semua</a>
-                </div>
-                
-                <div class="transaction-list">
-                    <div class="empty-state">
-                        <i class="fas fa-exchange-alt"></i>
-                        <h3>Belum Ada Transaksi</h3>
-                        <p>Tambahkan transaksi pertama Anda</p>
-                    </div>
-                </div>
-            </div>
+        <div class="buttons-container">
+            <button class="btn" onclick="location.href='input.html'">Tambah Data Keuangan</button>
+            <button class="btn btn-secondary" id="exportData">Export Data</button>
+            <input type="file" id="fileInput" accept=".json">
+            <button class="btn btn-secondary" id="importData">Import Data</button>
         </div>
-        
-        <footer>
-            <p>&copy; 2023 FinTrack - Sistem Pencatatan Keuangan Pribadi</p>
-        </footer>
+
+        <div id="chartContainer">
+            <h2>Ringkasan Keuangan (Chart Pie)</h2>
+            <canvas id="myPieChart"></canvas>
+        </div>
     </div>
-    
-    <div class="notification" id="notification">
-        Data berhasil di-export!
-    </div>
+
+    <div id="notification" class="notification"></div>
 
     <script>
-        // Inisialisasi Chart.js
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctx = document.getElementById('financeChart').getContext('2d');
-            const financeChart = new Chart(ctx, {
+        let myPieChart; // Declare chart variable globally
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDataAndRender();
+        });
+
+        function loadDataAndRender() {
+            const data = loadData();
+            updateDashboard(data);
+            renderChart(data);
+        }
+
+        function loadData() {
+            const dataString = localStorage.getItem('financialData');
+            return dataString ? JSON.parse(dataString) : { pemasukan: [], pengeluaran: [], utang: [] };
+        }
+
+        function updateDashboard(data) {
+            const totalPemasukan = data.pemasukan.reduce((sum, item) => sum + parseFloat(item.amount), 0);
+            const totalPengeluaran = data.pengeluaran.reduce((sum, item) => sum + parseFloat(item.amount), 0);
+            const totalUtang = data.utang.reduce((sum, item) => sum + parseFloat(item.amount), 0);
+            const saldoAkhir = totalPemasukan - totalPengeluaran - totalUtang;
+
+            document.getElementById('totalPemasukan').textContent = formatRupiah(totalPemasukan);
+            document.getElementById('totalPengeluaran').textContent = formatRupiah(totalPengeluaran);
+            document.getElementById('totalUtang').textContent = formatRupiah(totalUtang);
+            document.getElementById('saldoAkhir').textContent = formatRupiah(saldoAkhir);
+        }
+
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+        }
+
+        function renderChart(data) {
+            const totalPemasukan = data.pemasukan.reduce((sum, item) => sum + parseFloat(item.amount), 0);
+            const totalPengeluaran = data.pengeluaran.reduce((sum, item) => sum + parseFloat(item.amount), 0);
+            const totalUtang = data.utang.reduce((sum, item) => sum + parseFloat(item.amount), 0);
+
+            const ctx = document.getElementById('myPieChart').getContext('2d');
+
+            if (myPieChart) {
+                myPieChart.destroy(); // Destroy previous chart instance if exists
+            }
+
+            myPieChart = new Chart(ctx, {
                 type: 'pie',
                 data: {
-                    labels: ['Pemasukan', 'Pengeluaran', 'Hutang'],
+                    labels: ['Pemasukan', 'Pengeluaran', 'Utang'],
                     datasets: [{
-                        data: [0, 0, 0],
+                        data: [totalPemasukan, totalPengeluaran, totalUtang],
                         backgroundColor: [
-                            'rgba(120, 224, 143, 0.8)',
-                            'rgba(229, 80, 57, 0.8)',
-                            'rgba(246, 185, 59, 0.8)'
+                            'rgba(106, 154, 203, 0.8)', // Pemasukan (blue-ish)
+                            'rgba(255, 99, 132, 0.8)',  // Pengeluaran (red-ish)
+                            'rgba(255, 205, 86, 0.8)'   // Utang (yellow-ish)
                         ],
                         borderColor: [
-                            'rgba(120, 224, 143, 1)',
-                            'rgba(229, 80, 57, 1)',
-                            'rgba(246, 185, 59, 1)'
+                            'rgba(106, 154, 203, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 205, 86, 1)'
                         ],
                         borderWidth: 1
                     }]
@@ -477,49 +229,85 @@
                     responsive: true,
                     plugins: {
                         legend: {
-                            position: 'bottom',
-                            labels: {
-                                padding: 20,
-                                font: {
-                                    size: 14
-                                }
-                            }
+                            position: 'top',
                         },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return `${context.label}: Rp 0`;
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += formatRupiah(context.parsed);
+                                    }
+                                    return label;
                                 }
                             }
                         }
                     }
                 }
             });
-            
-            // Tampilkan pesan chart kosong
-            document.getElementById('emptyChart').style.display = 'block';
-            
-            // Export Button
-            document.getElementById('exportBtn').addEventListener('click', function() {
-                showNotification('Data berhasil di-export!', 'success');
-            });
-            
-            // Import Button
-            document.getElementById('importBtn').addEventListener('click', function() {
-                showNotification('Data berhasil di-import!', 'success');
-            });
-            
-            // Notification function
-            function showNotification(message, type) {
-                const notification = document.getElementById('notification');
-                notification.textContent = message;
-                notification.className = `notification show ${type}`;
-                
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 3000);
+        }
+
+        document.getElementById('exportData').addEventListener('click', () => {
+            const data = localStorage.getItem('financialData');
+            if (!data || JSON.parse(data).pemasukan.length === 0 && JSON.parse(data).pengeluaran.length === 0 && JSON.parse(data).utang.length === 0) {
+                showNotification('Tidak ada data untuk diexport.', 'orange');
+                return;
+            }
+
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'financial_data.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showNotification('Data berhasil diexport!', 'green');
+        });
+
+        document.getElementById('importData').addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+
+        document.getElementById('fileInput').addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const importedData = JSON.parse(e.target.result);
+                        // Basic validation for imported data structure
+                        if (importedData.pemasukan && Array.isArray(importedData.pemasukan) &&
+                            importedData.pengeluaran && Array.isArray(importedData.pengeluaran) &&
+                            importedData.utang && Array.isArray(importedData.utang)) {
+                            localStorage.setItem('financialData', JSON.stringify(importedData));
+                            loadDataAndRender();
+                            showNotification('Data berhasil diimport!', 'green');
+                        } else {
+                            showNotification('Format file tidak valid. Harap import file JSON keuangan yang benar.', 'red');
+                        }
+                    } catch (error) {
+                        showNotification('Gagal membaca file. Pastikan file JSON valid.', 'red');
+                        console.error('Error importing file:', error);
+                    }
+                };
+                reader.readAsText(file);
             }
         });
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.backgroundColor = type === 'green' ? '#4CAF50' : (type === 'red' ? '#f44336' : '#ff9800');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
     </script>
 </body>
 </html>

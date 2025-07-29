@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Data Keuangan</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e0e7ee, #f0f4f8); /* Soft gradient background */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        h1 {
+            color: #4a69bd;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+        .form-section {
+            margin-bottom: 25px;
+            border: 1px solid #dcdcdc;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #f8fbfd;
+            text-align: left;
+        }
+        .form-section h2 {
+            color: #5b7fb7;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="date"],
+        .form-group textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #6a9acb;
+            outline: none;
+        }
+        .btn {
+            background-color: #6a9acb;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #507fb3;
+            transform: translateY(-2px);
+        }
+        .btn-back {
+            background-color: #92b8da;
+            margin-top: 20px;
+        }
+        .btn-back:hover {
+            background-color: #7ba6cb;
+        }
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 1000;
+        }
+        .notification.show {
+            opacity: 1;
+        }
+        .data-table-container {
+            margin-top: 40px;
+            text-align: left;
+        }
+        .data-table-container h2 {
+            color: #4a69bd;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+        th {
+            background-color: #e8f0fe;
+            color: #5b7fb7;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:hover {
+            background-color: #f5fafd;
+        }
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: background-color 0.3s ease;
+        }
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Input Data Keuangan</h1>
+
+        <div class="form-section">
+            <h2>Pemasukan</h2>
+            <div class="form-group">
+                <label for="pemasukanAmount">Jumlah (Rp)</label>
+                <input type="number" id="pemasukanAmount" placeholder="Contoh: 500000" min="0">
+            </div>
+            <div class="form-group">
+                <label for="pemasukanDescription">Deskripsi</label>
+                <input type="text" id="pemasukanDescription" placeholder="Contoh: Gaji bulanan">
+            </div>
+            <div class="form-group">
+                <label for="pemasukanDate">Tanggal</label>
+                <input type="date" id="pemasukanDate">
+            </div>
+            <button class="btn" onclick="addEntry('pemasukan')">Tambah Pemasukan</button>
+        </div>
+
+        <div class="form-section">
+            <h2>Pengeluaran</h2>
+            <div class="form-group">
+                <label for="pengeluaranAmount">Jumlah (Rp)</label>
+                <input type="number" id="pengeluaranAmount" placeholder="Contoh: 150000" min="0">
+            </div>
+            <div class="form-group">
+                <label for="pengeluaranDescription">Deskripsi</label>
+                <input type="text" id="pengeluaranDescription" placeholder="Contoh: Belanja kebutuhan">
+            </div>
+            <div class="form-group">
+                <label for="pengeluaranDate">Tanggal</label>
+                <input type="date" id="pengeluaranDate">
+            </div>
+            <button class="btn" onclick="addEntry('pengeluaran')">Tambah Pengeluaran</button>
+        </div>
+
+        <div class="form-section">
+            <h2>Utang</h2>
+            <div class="form-group">
+                <label for="utangAmount">Jumlah (Rp)</label>
+                <input type="number" id="utangAmount" placeholder="Contoh: 200000" min="0">
+            </div>
+            <div class="form-group">
+                <label for="utangDescription">Deskripsi</label>
+                <input type="text" id="utangDescription" placeholder="Contoh: Pinjaman ke teman">
+            </div>
+            <div class="form-group">
+                <label for="utangDate">Tanggal</label>
+                <input type="date" id="utangDate">
+            </div>
+            <button class="btn" onclick="addEntry('utang')">Tambah Utang</button>
+        </div>
+
+        <button class="btn btn-back" onclick="location.href='index.html'">Kembali ke Dashboard</button>
+
+        <div class="data-table-container">
+            <h2>Histori Pemasukan</h2>
+            <table id="pemasukanTable">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Deskripsi</th>
+                        <th>Jumlah</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+
+            <h2>Histori Pengeluaran</h2>
+            <table id="pengeluaranTable">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Deskripsi</th>
+                        <th>Jumlah</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+
+            <h2>Histori Utang</h2>
+            <table id="utangTable">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Deskripsi</th>
+                        <th>Jumlah</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTables();
+        });
+
+        function loadData() {
+            const dataString = localStorage.getItem('financialData');
+            return dataString ? JSON.parse(dataString) : { pemasukan: [], pengeluaran: [], utang: [] };
+        }
+
+        function saveData(data) {
+            localStorage.setItem('financialData', JSON.stringify(data));
+        }
+
+        function addEntry(type) {
+            const amountInput = document.getElementById(`${type}Amount`);
+            const descriptionInput = document.getElementById(`${type}Description`);
+            const dateInput = document.getElementById(`${type}Date`);
+
+            const amount = parseFloat(amountInput.value);
+            const description = descriptionInput.value.trim();
+            const date = dateInput.value;
+
+            if (isNaN(amount) || amount <= 0) {
+                showNotification('Jumlah harus berupa angka positif.', 'red');
+                return;
+            }
+            if (!description) {
+                showNotification('Deskripsi tidak boleh kosong.', 'red');
+                return;
+            }
+            if (!date) {
+                showNotification('Tanggal tidak boleh kosong.', 'red');
+                return;
+            }
+
+            const data = loadData();
+            data[type].push({ amount: amount, description: description, date: date });
+            saveData(data);
+            renderTables(); // Re-render tables after adding new entry
+            showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} berhasil ditambahkan!`, 'green');
+
+            // Clear form fields
+            amountInput.value = '';
+            descriptionInput.value = '';
+            dateInput.value = '';
+        }
+
+        function deleteEntry(type, index) {
+            const data = loadData();
+            if (confirm(`Anda yakin ingin menghapus data ${type} ini?`)) {
+                data[type].splice(index, 1);
+                saveData(data);
+                renderTables();
+                showNotification(`Data ${type} berhasil dihapus.`, 'green');
+            }
+        }
+
+        function renderTables() {
+            const data = loadData();
+            renderTable('pemasukanTable', data.pemasukan, 'pemasukan');
+            renderTable('pengeluaranTable', data.pengeluaran, 'pengeluaran');
+            renderTable('utangTable', data.utang, 'utang');
+        }
+
+        function renderTable(tableId, entries, type) {
+            const tableBody = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            entries.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by date, newest first
+
+            entries.forEach((entry, index) => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).textContent = entry.date;
+                row.insertCell(1).textContent = entry.description;
+                row.insertCell(2).textContent = formatRupiah(entry.amount);
+                const actionCell = row.insertCell(3);
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Hapus';
+                deleteButton.className = 'delete-btn';
+                deleteButton.onclick = () => deleteEntry(type, index);
+                actionCell.appendChild(deleteButton);
+            });
+        }
+
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+        }
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.backgroundColor = type === 'green' ? '#4CAF50' : '#f44336';
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
