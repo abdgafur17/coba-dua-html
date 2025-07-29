@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Data Keuangan & Tabungan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
-            padding: 15px;
-            background: linear-gradient(135deg, #e0f2f7, #c1e4f4);
+            padding: 25px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: #333;
             display: flex;
             flex-direction: column;
@@ -22,56 +23,72 @@
             justify-content: flex-start;
             width: 100%;
             max-width: 700px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         .container {
             background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
             width: 100%;
             max-width: 700px;
             box-sizing: border-box;
             text-align: center;
-            backdrop-filter: blur(5px);
+            border: 1px solid #e0e6ed;
         }
         h1 {
-            color: #2a52be;
-            margin-bottom: 20px;
-            font-size: 2.2em;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        h1 i {
+            font-size: 0.9em;
+            color: #3498db;
         }
         .form-section {
-            margin-bottom: 25px;
-            border: 1px solid #dcdcdc;
-            border-radius: 10px;
-            padding: 20px;
-            background-color: #f0f8ff;
+            margin-bottom: 30px;
+            border: 1px solid #e0e6ed;
+            border-radius: 12px;
+            padding: 25px;
+            background-color: #f8fafd;
             text-align: left;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
         .form-section h2 {
-            color: #3f60b4;
+            color: #34495e;
             margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.6em;
+            margin-bottom: 18px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-section h2 i {
+            color: #3498db;
+            font-size: 1.1em;
         }
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            font-weight: bold;
+            font-weight: 600;
             color: #555;
+            font-size: 0.95em;
         }
         .form-group input[type="text"],
         .form-group input[type="number"],
         .form-group input[type="date"],
         .form-group textarea {
-            width: calc(100% - 24px);
-            padding: 12px;
-            border: 1px solid #cceeff;
+            width: calc(100% - 28px); /* Adjusted for padding */
+            padding: 14px;
+            border: 1px solid #dbe2ed; /* Border lebih halus */
             border-radius: 8px;
             font-size: 1em;
             box-sizing: border-box;
@@ -79,15 +96,15 @@
         }
         .form-group input:focus,
         .form-group textarea:focus {
-            border-color: #4a90e2;
-            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
             outline: none;
         }
         .btn {
-            background-color: #4a90e2;
+            background-color: #3498db;
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 14px 28px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 1.1em;
@@ -96,39 +113,42 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         .btn:hover {
-            background-color: #3b7cd1;
+            background-color: #2980b9;
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
         }
         .btn-back {
-            background-color: #8bbbe4;
-            padding: 10px 20px;
+            background-color: #95a5a6;
+            padding: 12px 20px;
             font-size: 1em;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
         }
         .btn-back:hover {
-            background-color: #7aa9cb;
+            background-color: #7f8c8d;
         }
         .notification {
             position: fixed;
-            bottom: 20px;
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #4CAF50;
+            background-color: #28a745;
             color: white;
-            padding: 12px 20px;
+            padding: 15px 25px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
             z-index: 1000;
-            font-size: 0.9em;
+            font-size: 0.95em;
             white-space: nowrap;
         }
         .notification.show {
             opacity: 1;
+        }
+        .notification.error {
+            background-color: #dc3545;
         }
         .nav-link {
             text-decoration: none;
@@ -136,45 +156,59 @@
             display: block;
         }
 
-        /* Media Queries for smaller screens */
-        @media (max-width: 600px) {
-            .container {
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            body {
                 padding: 15px;
-                border-radius: 8px;
+            }
+            .container {
+                padding: 20px;
+                border-radius: 12px;
             }
             h1 {
-                font-size: 1.8em;
+                font-size: 2em;
+                flex-direction: column;
+                gap: 10px;
             }
             .form-section {
-                padding: 15px;
+                padding: 18px;
             }
             .form-section h2 {
                 font-size: 1.4em;
+                flex-direction: column;
+                gap: 8px;
             }
             .form-group input, .form-group textarea {
                 padding: 10px;
                 font-size: 0.9em;
             }
             .btn {
-                padding: 10px 15px;
-                font-size: 0.95em;
+                padding: 12px 20px;
+                font-size: 1em;
             }
             .btn-back {
                 font-size: 0.9em;
-                padding: 8px 15px;
+                padding: 10px 15px;
+            }
+            .notification {
+                width: calc(100% - 40px);
+                left: 20px;
+                transform: translateX(0);
+                text-align: center;
+                white-space: normal;
             }
         }
     </style>
 </head>
 <body>
     <div class="nav-button-top">
-        <button class="btn btn-back"><a href="index.html" class="nav-link">⬅️ Kembali ke Dashboard</a></button>
+        <button class="btn btn-back"><a href="index.html" class="nav-link"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard</a></button>
     </div>
     <div class="container">
-        <h1>Input Data Keuangan & Tabungan ✍️</h1>
+        <h1><i class="fas fa-pencil-alt"></i> Input Data Keuangan & Tabungan</h1>
 
         <div class="form-section">
-            <h2>Pemasukan</h2>
+            <h2><i class="fas fa-money-check-alt"></i> Pemasukan</h2>
             <div class="form-group">
                 <label for="pemasukanAmount">Jumlah (Rp)</label>
                 <input type="number" id="pemasukanAmount" placeholder="Contoh: 500000" min="0" step="any">
@@ -191,7 +225,7 @@
         </div>
 
         <div class="form-section">
-            <h2>Pengeluaran</h2>
+            <h2><i class="fas fa-receipt"></i> Pengeluaran</h2>
             <div class="form-group">
                 <label for="pengeluaranAmount">Jumlah (Rp)</label>
                 <input type="number" id="pengeluaranAmount" placeholder="Contoh: 150000" min="0" step="any">
@@ -208,7 +242,7 @@
         </div>
 
         <div class="form-section">
-            <h2>Utang</h2>
+            <h2><i class="fas fa-handshake-alt-slash"></i> Utang</h2>
             <div class="form-group">
                 <label for="utangAmount">Jumlah (Rp)</label>
                 <input type="number" id="utangAmount" placeholder="Contoh: 200000" min="0" step="any">
@@ -225,7 +259,7 @@
         </div>
 
         <div class="form-section">
-            <h2>Tabungan Emas</h2>
+            <h2><i class="fas fa-gem"></i> Tabungan Emas</h2>
             <div class="form-group">
                 <label for="emasAmount">Jumlah (gram)</label>
                 <input type="number" id="emasAmount" placeholder="Contoh: 0.5" min="0" step="0.01">
@@ -242,7 +276,7 @@
         </div>
 
         <div class="form-section">
-            <h2>Tabungan Rupiah</h2>
+            <h2><i class="fas fa-piggy-bank"></i> Tabungan Rupiah</h2>
             <div class="form-group">
                 <label for="tabunganRupiahAmount">Jumlah (Rp)</label>
                 <input type="number" id="tabunganRupiahAmount" placeholder="Contoh: 100000" min="0" step="any">
@@ -269,14 +303,13 @@
 
         function loadData() {
             const dataString = localStorage.getItem('financialData');
-            // Tambahkan 'emas' dan 'tabunganRupiah' jika belum ada di data
             const initialData = { pemasukan: [], pengeluaran: [], utang: [], emas: [], tabunganRupiah: [] };
             return dataString ? { ...initialData, ...JSON.parse(dataString) } : initialData;
         }
 
         function saveData(data) {
             localStorage.setItem('financialData', JSON.stringify(data));
-            // Trigger dashboard to reload data
+            // Trigger dashboard to reload data if it's open
             if (window.opener && typeof window.opener.loadDataAndRender === 'function') {
                 window.opener.loadDataAndRender();
             }
@@ -291,23 +324,23 @@
             const description = descriptionInput.value.trim();
             const date = dateInput.value;
 
-            if (isNaN(amount) || amount < 0) { // Allow 0 for emas/rupiah if needed, but not for others
-                showNotification('Jumlah harus berupa angka positif atau nol.', 'red');
+            if (isNaN(amount) || amount < 0) {
+                showNotification('Jumlah harus berupa angka positif atau nol.', 'error');
                 return;
             }
             if (!description) {
-                showNotification('Deskripsi tidak boleh kosong.', 'red');
+                showNotification('Deskripsi tidak boleh kosong.', 'error');
                 return;
             }
             if (!date) {
-                showNotification('Tanggal tidak boleh kosong.', 'red');
+                showNotification('Tanggal tidak boleh kosong.', 'error');
                 return;
             }
 
             const data = loadData();
             data[type].push({ amount: amount, description: description, date: date });
             saveData(data);
-            showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} berhasil ditambahkan!`, 'green');
+            showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} berhasil ditambahkan!`, 'success');
 
             // Clear form fields
             amountInput.value = '';
@@ -315,14 +348,10 @@
             dateInput.value = '';
         }
 
-        // The deleteEntry and renderTables functions are now exclusively in index.html
-        // because the tables are no longer here.
-
-        function showNotification(message, type) {
+        function showNotification(message, type = 'success') {
             const notification = document.getElementById('notification');
             notification.textContent = message;
-            notification.style.backgroundColor = type === 'green' ? '#4CAF50' : '#f44336';
-            notification.classList.add('show');
+            notification.className = `notification show ${type}`; // Add type class
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 3000);
