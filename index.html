@@ -10,26 +10,29 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 20px;
-            background: linear-gradient(135deg, #f0f4f8, #e0e7ee); /* Soft gradient background */
+            background: linear-gradient(135deg, #e0f2f7, #c1e4f4); /* Softer blue gradient */
             color: #333;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
         .container {
             background-color: #ffffff;
             border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
             padding: 30px;
             width: 90%;
             max-width: 900px;
             margin-bottom: 20px;
             text-align: center;
+            backdrop-filter: blur(5px); /* Subtle blur effect */
         }
         h1 {
-            color: #4a69bd;
+            color: #2a52be; /* Deeper blue */
             margin-bottom: 25px;
-            font-size: 2.2em;
+            font-size: 2.5em; /* Slightly larger */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
         .summary-grid {
             display: grid;
@@ -38,22 +41,26 @@
             margin-bottom: 30px;
         }
         .summary-card {
-            background-color: #e8f0fe;
+            background-color: #f0f8ff; /* Lighter blue for cards */
             border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             text-align: left;
+            transition: transform 0.2s ease;
+        }
+        .summary-card:hover {
+            transform: translateY(-5px);
         }
         .summary-card h2 {
-            color: #5b7fb7;
+            color: #3f60b4; /* Darker blue for headings */
             margin-top: 0;
-            font-size: 1.3em;
+            font-size: 1.4em;
             margin-bottom: 10px;
         }
         .summary-card p {
-            font-size: 1.8em;
+            font-size: 2em; /* Larger amount text */
             font-weight: bold;
-            color: #333;
+            color: #1a1a1a;
         }
         .buttons-container {
             display: flex;
@@ -63,53 +70,59 @@
             flex-wrap: wrap;
         }
         .btn {
-            background-color: #6a9acb;
+            background-color: #4a90e2; /* Vibrant blue */
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 14px 28px; /* Larger padding */
             border-radius: 8px;
             cursor: pointer;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            font-size: 1.15em;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         .btn:hover {
-            background-color: #507fb3;
-            transform: translateY(-2px);
+            background-color: #3b7cd1;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
         }
         .btn-secondary {
-            background-color: #92b8da;
+            background-color: #8bbbe4; /* Lighter blue */
         }
         .btn-secondary:hover {
-            background-color: #7ba6cb;
+            background-color: #7aa9d1;
         }
         #chartContainer {
-            margin-top: 30px;
+            margin-top: 40px;
             background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            border-radius: 15px; /* More rounded corners */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            padding: 25px;
             width: 100%;
-            max-width: 600px; /* Max width for the chart */
+            max-width: 650px; /* Slightly larger max width for chart */
             box-sizing: border-box;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
         }
+        #chartContainer h2 {
+            color: #2a52be;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
         canvas {
             max-width: 100%;
             height: auto;
         }
         #fileInput {
-            display: none; /* Hide the default file input */
+            display: none;
         }
         .notification {
             position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #4CAF50; /* Green */
+            background-color: #4CAF50;
             color: white;
             padding: 15px 25px;
             border-radius: 8px;
@@ -121,40 +134,44 @@
         .notification.show {
             opacity: 1;
         }
+        .nav-link {
+            text-decoration: none;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Dashboard Keuangan Anda</h1>
+        <h1>Dashboard Keuangan Anda 📊</h1>
 
         <div class="summary-grid">
             <div class="summary-card">
-                <h2>Total Pemasukan</h2>
+                <h2>Total Pemasukan 💰</h2>
                 <p id="totalPemasukan">Rp 0</p>
             </div>
             <div class="summary-card">
-                <h2>Total Pengeluaran</h2>
+                <h2>Total Pengeluaran 💸</h2>
                 <p id="totalPengeluaran">Rp 0</p>
             </div>
             <div class="summary-card">
-                <h2>Total Utang</h2>
+                <h2>Total Utang 🤝</h2>
                 <p id="totalUtang">Rp 0</p>
             </div>
             <div class="summary-card">
-                <h2>Saldo Akhir</h2>
+                <h2>Saldo Akhir ✨</h2>
                 <p id="saldoAkhir">Rp 0</p>
             </div>
         </div>
 
         <div class="buttons-container">
-            <button class="btn" onclick="location.href='input.html'">Tambah Data Keuangan</button>
-            <button class="btn btn-secondary" id="exportData">Export Data</button>
+            <button class="btn"><a href="input.html" class="nav-link">Tambah Data Keuangan ✍️</a></button>
+            <button class="btn btn-secondary" id="exportData">Export Data 📤</button>
             <input type="file" id="fileInput" accept=".json">
-            <button class="btn btn-secondary" id="importData">Import Data</button>
+            <button class="btn btn-secondary" id="importData">Import Data 📥</button>
         </div>
 
         <div id="chartContainer">
-            <h2>Ringkasan Keuangan (Chart Pie)</h2>
+            <h2>Ringkasan Keuangan (Chart Pie) 📈</h2>
             <canvas id="myPieChart"></canvas>
         </div>
     </div>
@@ -162,7 +179,7 @@
     <div id="notification" class="notification"></div>
 
     <script>
-        let myPieChart; // Declare chart variable globally
+        let myPieChart;
 
         document.addEventListener('DOMContentLoaded', () => {
             loadDataAndRender();
@@ -203,7 +220,7 @@
             const ctx = document.getElementById('myPieChart').getContext('2d');
 
             if (myPieChart) {
-                myPieChart.destroy(); // Destroy previous chart instance if exists
+                myPieChart.destroy();
             }
 
             myPieChart = new Chart(ctx, {
@@ -213,14 +230,14 @@
                     datasets: [{
                         data: [totalPemasukan, totalPengeluaran, totalUtang],
                         backgroundColor: [
-                            'rgba(106, 154, 203, 0.8)', // Pemasukan (blue-ish)
-                            'rgba(255, 99, 132, 0.8)',  // Pengeluaran (red-ish)
-                            'rgba(255, 205, 86, 0.8)'   // Utang (yellow-ish)
+                            'rgba(75, 192, 192, 0.8)', // Pemasukan (Teal)
+                            'rgba(255, 99, 132, 0.8)',  // Pengeluaran (Red)
+                            'rgba(255, 159, 64, 0.8)'   // Utang (Orange)
                         ],
                         borderColor: [
-                            'rgba(106, 154, 203, 1)',
+                            'rgba(75, 192, 192, 1)',
                             'rgba(255, 99, 132, 1)',
-                            'rgba(255, 205, 86, 1)'
+                            'rgba(255, 159, 64, 1)'
                         ],
                         borderWidth: 1
                     }]
@@ -280,7 +297,6 @@
                 reader.onload = (e) => {
                     try {
                         const importedData = JSON.parse(e.target.result);
-                        // Basic validation for imported data structure
                         if (importedData.pemasukan && Array.isArray(importedData.pemasukan) &&
                             importedData.pengeluaran && Array.isArray(importedData.pengeluaran) &&
                             importedData.utang && Array.isArray(importedData.utang)) {
