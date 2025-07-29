@@ -76,7 +76,7 @@ function saveData() {
 
     localStorage.setItem('budgetData', JSON.stringify(data));
     alert('Data anggaran berhasil disimpan! Mengalihkan ke Dashboard.');
-    window.location.href = 'dashboard.html';
+    window.location.href = 'index.html'; // <--- Perubahan di sini!
 }
 
 function loadData() {
