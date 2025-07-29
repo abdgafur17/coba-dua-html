@@ -259,6 +259,18 @@
             gap: 15px;
         }
 
+        .empty-state {
+            text-align: center;
+            padding: 40px 0;
+            color: #777;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+
         .transaction-item {
             display: flex;
             justify-content: space-between;
@@ -396,8 +408,6 @@
                 <ul>
                     <li><a href="index.html">Dashboard</a></li>
                     <li><a href="#" class="active">Transaksi</a></li>
-                    <li><a href="#">Laporan</a></li>
-                    <li><a href="#">Pengaturan</a></li>
                 </ul>
             </nav>
         </header>
@@ -405,10 +415,10 @@
         <div class="page-title">
             <h2>Kelola Transaksi Keuangan</h2>
             <div>
-                <button class="btn btn-primary">
+                <button class="btn btn-primary" id="exportBtn">
                     <i class="fas fa-file-export"></i> Export Data
                 </button>
-                <button class="btn btn-success">
+                <button class="btn btn-success" id="importBtn">
                     <i class="fas fa-file-import"></i> Import Data
                 </button>
             </div>
@@ -479,111 +489,28 @@
                 <div class="transactions-header">
                     <h3>Daftar Transaksi</h3>
                     <div class="filters">
-                        <select class="filter-select">
-                            <option>Semua</option>
-                            <option>Pemasukan</option>
-                            <option>Pengeluaran</option>
-                            <option>Hutang</option>
+                        <select class="filter-select" id="typeFilter">
+                            <option value="all">Semua</option>
+                            <option value="income">Pemasukan</option>
+                            <option value="expense">Pengeluaran</option>
+                            <option value="debt">Hutang</option>
                         </select>
-                        <select class="filter-select">
-                            <option>Semua Kategori</option>
-                            <option>Gaji</option>
-                            <option>Freelance</option>
-                            <option>Makanan</option>
-                            <option>Tagihan</option>
+                        <select class="filter-select" id="categoryFilter">
+                            <option value="all">Semua Kategori</option>
+                            <option value="salary">Gaji</option>
+                            <option value="freelance">Freelance</option>
+                            <option value="food">Makanan</option>
+                            <option value="bills">Tagihan</option>
+                            <option value="shopping">Belanja</option>
                         </select>
                     </div>
                 </div>
                 
-                <div class="transaction-list">
-                    <div class="transaction-item">
-                        <div class="transaction-info">
-                            <div class="transaction-title">Gaji Bulanan</div>
-                            <div class="transaction-meta">
-                                <span><i class="fas fa-calendar"></i> 15 Juli 2023</span>
-                                <span><i class="fas fa-tag"></i> Gaji</span>
-                            </div>
-                        </div>
-                        <div class="transaction-amount income-amount">+ Rp 5.500.000</div>
-                        <div class="transaction-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </div>
-                    
-                    <div class="transaction-item">
-                        <div class="transaction-info">
-                            <div class="transaction-title">Belanja Bulanan</div>
-                            <div class="transaction-meta">
-                                <span><i class="fas fa-calendar"></i> 18 Juli 2023</span>
-                                <span><i class="fas fa-tag"></i> Belanja</span>
-                            </div>
-                        </div>
-                        <div class="transaction-amount expense-amount">- Rp 1.200.000</div>
-                        <div class="transaction-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </div>
-                    
-                    <div class="transaction-item">
-                        <div class="transaction-info">
-                            <div class="transaction-title">Bayar Listrik</div>
-                            <div class="transaction-meta">
-                                <span><i class="fas fa-calendar"></i> 20 Juli 2023</span>
-                                <span><i class="fas fa-tag"></i> Tagihan</span>
-                            </div>
-                        </div>
-                        <div class="transaction-amount expense-amount">- Rp 850.000</div>
-                        <div class="transaction-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </div>
-                    
-                    <div class="transaction-item">
-                        <div class="transaction-info">
-                            <div class="transaction-title">Pinjaman Teman</div>
-                            <div class="transaction-meta">
-                                <span><i class="fas fa-calendar"></i> 22 Juli 2023</span>
-                                <span><i class="fas fa-tag"></i> Pinjaman</span>
-                            </div>
-                        </div>
-                        <div class="transaction-amount debt-amount">- Rp 500.000</div>
-                        <div class="transaction-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </div>
-                    
-                    <div class="transaction-item">
-                        <div class="transaction-info">
-                            <div class="transaction-title">Freelance Project</div>
-                            <div class="transaction-meta">
-                                <span><i class="fas fa-calendar"></i> 25 Juli 2023</span>
-                                <span><i class="fas fa-tag"></i> Freelance</span>
-                            </div>
-                        </div>
-                        <div class="transaction-amount income-amount">+ Rp 2.350.000</div>
-                        <div class="transaction-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </div>
-                    
-                    <div class="transaction-item">
-                        <div class="transaction-info">
-                            <div class="transaction-title">Makan di Restoran</div>
-                            <div class="transaction-meta">
-                                <span><i class="fas fa-calendar"></i> 28 Juli 2023</span>
-                                <span><i class="fas fa-tag"></i> Makanan</span>
-                            </div>
-                        </div>
-                        <div class="transaction-amount expense-amount">- Rp 350.000</div>
-                        <div class="transaction-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn"><i class="fas fa-trash"></i></button>
-                        </div>
+                <div class="transaction-list" id="transactionList">
+                    <div class="empty-state">
+                        <i class="fas fa-exchange-alt"></i>
+                        <h3>Belum Ada Transaksi</h3>
+                        <p>Tambahkan transaksi pertama Anda</p>
                     </div>
                 </div>
             </div>
@@ -599,11 +526,24 @@
     </div>
 
     <script>
+        // Array untuk menyimpan transaksi
+        let transactions = [];
+        
         // Inisialisasi form
         document.addEventListener('DOMContentLoaded', function() {
             // Set tanggal default ke hari ini
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('date').value = today;
+            
+            // Export Button
+            document.getElementById('exportBtn').addEventListener('click', function() {
+                showNotification('Data berhasil di-export!', 'success');
+            });
+            
+            // Import Button
+            document.getElementById('importBtn').addEventListener('click', function() {
+                showNotification('Data berhasil di-import!', 'success');
+            });
             
             // Form submission
             document.getElementById('transactionForm').addEventListener('submit', function(e) {
@@ -611,10 +551,23 @@
                 
                 // Dapatkan nilai form
                 const type = document.querySelector('input[name="type"]:checked').value;
-                const amount = document.getElementById('amount').value;
+                const amount = parseInt(document.getElementById('amount').value);
                 const description = document.getElementById('description').value;
                 const category = document.getElementById('category').value;
                 const date = document.getElementById('date').value;
+                
+                // Tambahkan transaksi ke array
+                transactions.push({
+                    id: Date.now(),
+                    type,
+                    amount,
+                    description,
+                    category,
+                    date
+                });
+                
+                // Update daftar transaksi
+                renderTransactions();
                 
                 // Tampilkan notifikasi
                 showNotification('Transaksi berhasil ditambahkan!', 'success');
@@ -623,6 +576,97 @@
                 this.reset();
                 document.getElementById('date').value = today;
             });
+            
+            // Filter event listeners
+            document.getElementById('typeFilter').addEventListener('change', renderTransactions);
+            document.getElementById('categoryFilter').addEventListener('change', renderTransactions);
+            
+            // Render transaksi
+            function renderTransactions() {
+                const transactionList = document.getElementById('transactionList');
+                const typeFilter = document.getElementById('typeFilter').value;
+                const categoryFilter = document.getElementById('categoryFilter').value;
+                
+                // Filter transaksi
+                const filteredTransactions = transactions.filter(transaction => {
+                    const typeMatch = typeFilter === 'all' || transaction.type === typeFilter;
+                    const categoryMatch = categoryFilter === 'all' || transaction.category === categoryFilter;
+                    return typeMatch && categoryMatch;
+                });
+                
+                if (filteredTransactions.length === 0) {
+                    transactionList.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-exchange-alt"></i>
+                            <h3>Tidak Ada Transaksi</h3>
+                            <p>Tidak ditemukan transaksi dengan filter ini</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Kosongkan daftar transaksi
+                transactionList.innerHTML = '';
+                
+                // Tambahkan setiap transaksi ke daftar
+                filteredTransactions.forEach(transaction => {
+                    const transactionItem = document.createElement('div');
+                    transactionItem.className = 'transaction-item';
+                    
+                    // Tentukan kelas berdasarkan jenis transaksi
+                    let amountClass = '';
+                    let sign = '';
+                    
+                    if (transaction.type === 'income') {
+                        amountClass = 'income-amount';
+                        sign = '+';
+                    } else if (transaction.type === 'expense') {
+                        amountClass = 'expense-amount';
+                        sign = '-';
+                    } else {
+                        amountClass = 'debt-amount';
+                        sign = '-';
+                    }
+                    
+                    transactionItem.innerHTML = `
+                        <div class="transaction-info">
+                            <div class="transaction-title">${transaction.description}</div>
+                            <div class="transaction-meta">
+                                <span><i class="fas fa-calendar"></i> ${formatDate(transaction.date)}</span>
+                                <span><i class="fas fa-tag"></i> ${getCategoryName(transaction.category)}</span>
+                            </div>
+                        </div>
+                        <div class="transaction-amount ${amountClass}">${sign} Rp ${transaction.amount.toLocaleString('id-ID')}</div>
+                        <div class="transaction-actions">
+                            <button class="action-btn"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn" onclick="deleteTransaction(${transaction.id})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    
+                    transactionList.appendChild(transactionItem);
+                });
+            }
+            
+            // Format tanggal
+            function formatDate(dateString) {
+                const options = { day: 'numeric', month: 'long', year: 'numeric' };
+                return new Date(dateString).toLocaleDateString('id-ID', options);
+            }
+            
+            // Dapatkan nama kategori
+            function getCategoryName(category) {
+                const categories = {
+                    'salary': 'Gaji',
+                    'freelance': 'Freelance',
+                    'investment': 'Investasi',
+                    'food': 'Makanan',
+                    'transport': 'Transportasi',
+                    'bills': 'Tagihan',
+                    'shopping': 'Belanja',
+                    'loan': 'Pinjaman'
+                };
+                return categories[category] || category;
+            }
             
             // Notification function
             function showNotification(message, type) {
@@ -635,6 +679,17 @@
                 }, 3000);
             }
         });
+        
+        // Fungsi untuk menghapus transaksi
+        function deleteTransaction(id) {
+            transactions = transactions.filter(transaction => transaction.id !== id);
+            document.getElementById('notification').textContent = 'Transaksi berhasil dihapus!';
+            document.getElementById('notification').className = 'notification show success';
+            setTimeout(() => {
+                document.getElementById('notification').classList.remove('show');
+            }, 3000);
+            renderTransactions();
+        }
     </script>
 </body>
 </html>

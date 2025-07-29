@@ -159,6 +159,9 @@
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
         }
 
         .chart-header {
@@ -176,7 +179,8 @@
         .actions {
             display: flex;
             gap: 15px;
-            margin-top: 30px;
+            margin-top: auto;
+            padding-top: 20px;
         }
 
         .btn {
@@ -225,6 +229,18 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 0;
+            color: #777;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ddd;
         }
 
         .transaction-item {
@@ -337,8 +353,6 @@
                 <ul>
                     <li><a href="#" class="active">Dashboard</a></li>
                     <li><a href="detail.html">Transaksi</a></li>
-                    <li><a href="#">Laporan</a></li>
-                    <li><a href="#">Pengaturan</a></li>
                 </ul>
             </nav>
         </header>
@@ -349,8 +363,8 @@
                     <i class="fas fa-arrow-down"></i>
                     <h3>Pemasukan</h3>
                 </div>
-                <div class="stat-amount">Rp 7.850.000</div>
-                <div class="stat-info">+12% dari bulan lalu</div>
+                <div class="stat-amount">Rp 0</div>
+                <div class="stat-info">Belum ada data pemasukan</div>
             </div>
             
             <div class="stat-card expense">
@@ -358,8 +372,8 @@
                     <i class="fas fa-arrow-up"></i>
                     <h3>Pengeluaran</h3>
                 </div>
-                <div class="stat-amount">Rp 4.200.000</div>
-                <div class="stat-info">-5% dari bulan lalu</div>
+                <div class="stat-amount">Rp 0</div>
+                <div class="stat-info">Belum ada data pengeluaran</div>
             </div>
             
             <div class="stat-card debt">
@@ -367,8 +381,8 @@
                     <i class="fas fa-hand-holding-usd"></i>
                     <h3>Hutang</h3>
                 </div>
-                <div class="stat-amount">Rp 1.500.000</div>
-                <div class="stat-info">2 hutang aktif</div>
+                <div class="stat-amount">Rp 0</div>
+                <div class="stat-info">Belum ada data hutang</div>
             </div>
             
             <div class="stat-card balance">
@@ -376,7 +390,7 @@
                     <i class="fas fa-wallet"></i>
                     <h3>Saldo</h3>
                 </div>
-                <div class="stat-amount">Rp 3.650.000</div>
+                <div class="stat-amount">Rp 0</div>
                 <div class="stat-info">Saldo saat ini</div>
             </div>
         </div>
@@ -390,12 +404,16 @@
                             <option>Bulan Ini</option>
                             <option>3 Bulan Terakhir</option>
                             <option>Tahun Ini</option>
-                            <option>Tahun Lalu</option>
                         </select>
                     </div>
                 </div>
                 
                 <canvas id="financeChart"></canvas>
+                <div class="empty-state" id="emptyChart" style="display: none;">
+                    <i class="fas fa-chart-pie"></i>
+                    <h3>Belum Ada Data</h3>
+                    <p>Tambahkan transaksi untuk melihat ringkasan keuangan</p>
+                </div>
                 
                 <div class="actions">
                     <button class="btn btn-primary" id="exportBtn">
@@ -414,44 +432,10 @@
                 </div>
                 
                 <div class="transaction-list">
-                    <div class="transaction-item">
-                        <div class="transaction-info">
-                            <div class="transaction-title">Gaji Bulanan</div>
-                            <div class="transaction-date">15 Juli 2023</div>
-                        </div>
-                        <div class="transaction-amount income-amount">+ Rp 5.500.000</div>
-                    </div>
-                    
-                    <div class="transaction-item">
-                        <div class="transaction-info">
-                            <div class="transaction-title">Belanja Bulanan</div>
-                            <div class="transaction-date">18 Juli 2023</div>
-                        </div>
-                        <div class="transaction-amount expense-amount">- Rp 1.200.000</div>
-                    </div>
-                    
-                    <div class="transaction-item">
-                        <div class="transaction-info">
-                            <div class="transaction-title">Bayar Listrik</div>
-                            <div class="transaction-date">20 Juli 2023</div>
-                        </div>
-                        <div class="transaction-amount expense-amount">- Rp 850.000</div>
-                    </div>
-                    
-                    <div class="transaction-item">
-                        <div class="transaction-info">
-                            <div class="transaction-title">Pinjaman Teman</div>
-                            <div class="transaction-date">22 Juli 2023</div>
-                        </div>
-                        <div class="transaction-amount debt-amount">- Rp 500.000</div>
-                    </div>
-                    
-                    <div class="transaction-item">
-                        <div class="transaction-info">
-                            <div class="transaction-title">Freelance Project</div>
-                            <div class="transaction-date">25 Juli 2023</div>
-                        </div>
-                        <div class="transaction-amount income-amount">+ Rp 2.350.000</div>
+                    <div class="empty-state">
+                        <i class="fas fa-exchange-alt"></i>
+                        <h3>Belum Ada Transaksi</h3>
+                        <p>Tambahkan transaksi pertama Anda</p>
                     </div>
                 </div>
             </div>
@@ -475,7 +459,7 @@
                 data: {
                     labels: ['Pemasukan', 'Pengeluaran', 'Hutang'],
                     datasets: [{
-                        data: [7850000, 4200000, 1500000],
+                        data: [0, 0, 0],
                         backgroundColor: [
                             'rgba(120, 224, 143, 0.8)',
                             'rgba(229, 80, 57, 0.8)',
@@ -504,17 +488,16 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    let label = context.label || '';
-                                    let value = context.raw || 0;
-                                    let total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                    let percentage = Math.round((value / total) * 100);
-                                    return `${label}: Rp ${value.toLocaleString('id-ID')} (${percentage}%)`;
+                                    return `${context.label}: Rp 0`;
                                 }
                             }
                         }
                     }
                 }
             });
+            
+            // Tampilkan pesan chart kosong
+            document.getElementById('emptyChart').style.display = 'block';
             
             // Export Button
             document.getElementById('exportBtn').addEventListener('click', function() {
