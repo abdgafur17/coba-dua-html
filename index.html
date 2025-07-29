@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Utama - Contoh Website</title>
+    <style>
+        /* Styling umum untuk seluruh halaman */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        /* Header styling */
+        header {
+            background: linear-gradient(to right, #2c3e50, #4a6491);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo span {
+            color: #fdbb2d;
+        }
+        
+        /* Menu navigasi */
+        nav {
+            background-color: #34495e;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .menu {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .menu li {
+            position: relative;
+        }
+        
+        .menu a {
+            display: block;
+            padding: 15px 25px;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .menu a:hover {
+            background-color: #2c3e50;
+        }
+        
+        .menu a.active {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        /* Konten utama */
+        main {
+            padding: 30px;
+            min-height: 500px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #e74c3c;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .content {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .text-content {
+            flex: 1;
+        }
+        
+        .image-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-content img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        /* Footer styling */
+        footer {
+            background: linear-gradient(to right, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        /* Tombol interaktif */
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Responsif */
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .menu {
+                flex-direction: column;
+            }
+        }
+        
+        /* Animasi untuk konten */
+        .animated-box {
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        
+        .animated-box:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Web<span>Contoh</span></div>
+            <p>Contoh Website dengan Menu Navigasi dan JavaScript</p>
+        </header>
+        
+        <nav>
+            <ul class="menu">
+                <li><a href="index.html" class="nav-link active">Beranda</a></li>
+                <li><a href="about.html" class="nav-link">Tentang Kami</a></li>
+                <li><a href="about.html#services" class="nav-link">Layanan</a></li>
+                <li><a href="about.html#contact" class="nav-link">Kontak</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            <h2>Selamat Datang di Halaman Utama</h2>
+            <div class="content">
+                <div class="text-content">
+                    <p>Ini adalah contoh website dengan dua halaman HTML yang saling terhubung. Halaman ini adalah halaman utama yang menampilkan informasi pengantar.</p>
+                    <p>Klik menu di atas untuk berpindah ke halaman lain. Setiap halaman memiliki konten yang berbeda.</p>
+                    <p>Fitur yang ditunjukkan pada contoh ini:</p>
+                    <ul>
+                        <li>Dua halaman HTML terpisah (index.html dan about.html)</li>
+                        <li>Menu navigasi yang konsisten di kedua halaman</li>
+                        <li>Link anchor untuk navigasi dalam halaman</li>
+                        <li>JavaScript untuk efek interaktif</li>
+                        <li>Desain responsif untuk berbagai ukuran layar</li>
+                    </ul>
+                    <a href="about.html" class="btn">Lihat Halaman Tentang</a>
+                </div>
+                <div class="image-content">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600" alt="Contoh Gambar">
+                </div>
+            </div>
+            
+            <div class="animated-box" id="animation-box">
+                <h3>Area Interaktif</h3>
+                <p>Klik atau sentuh area ini untuk melihat efek animasi!</p>
+            </div>
+            
+            <div class="content" style="margin-top: 40px;">
+                <div class="text-content">
+                    <h3>Fitur Unggulan</h3>
+                    <p>Website ini menawarkan berbagai fitur menarik:</p>
+                    
+                    <div class="feature-card">
+                        <h4>Desain Modern</h4>
+                        <p>Tampilan yang elegan dan kontemporer dengan palet warna yang menarik.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>Responsif</h4>
+                        <p>Dapat diakses dengan baik di berbagai perangkat mulai dari desktop hingga mobile.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>User-Friendly</h4>
+                        <p>Navigasi yang intuitif dan mudah digunakan oleh semua pengguna.</p>
+                    </div>
+                </div>
+                
+                <div class="text-content">
+                    <h3>Testimoni Pengguna</h3>
+                    
+                    <div class="testimonial">
+                        <p>"Website ini sangat mudah digunakan dan memiliki desain yang menarik. Navigasinya sangat intuitif!"</p>
+                        <p><strong>- Budi, Pengguna</strong></p>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <p>"Saya suka cara menu navigasi bekerja. Sangat responsif dan efek animasinya halus."</p>
+                        <p><strong>- Siti, Developer</strong></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2023 Contoh Website dengan Menu Navigasi. Hak Cipta Dilindungi.</p>
+            <p>Contoh interaktif dengan HTML, CSS, dan JavaScript</p>
+        </footer>
+    </div>
+
+    <script>
+        // Fungsi untuk animasi kotak interaktif
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animasi untuk kotak interaktif
+            const animationBox = document.getElementById('animation-box');
+            if (animationBox) {
+                animationBox.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    this.style.backgroundColor = '#e74c3c';
+                    
+                    setTimeout(() => {
+                        this.style.transform = '';
+                        this.style.backgroundColor = '';
+                    }, 300);
+                });
+            }
+            
+            // Menandai menu aktif berdasarkan halaman
+            const currentPage = location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // Animasi saat halaman dimuat
+            document.querySelector('main').style.opacity = 0;
+            setTimeout(() => {
+                document.querySelector('main').style.transition = 'opacity 0.5s ease-in';
+                document.querySelector('main').style.opacity = 1;
+            }, 100);
+        });
+    </script>
+</body>
+</html>
