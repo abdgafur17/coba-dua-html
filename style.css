@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+:root {
+    --primary-color: #0056b3; /* A professional blue */
+    --secondary-color: #f8f9fa; /* Light grey for backgrounds */
+    --text-color: #333;
+    --border-color: #ddd;
+    --header-bg: #e9ecef;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --neutral-color: #ffc107; /* Warning yellow for zero diff */
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #f4f7f6; /* Slightly darker than secondary for contrast */
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--box-shadow);
+}
+
+h1, h2, h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-size: 1.8em;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-top: 30px;
+}
+
+h3 {
+    font-size: 1.4em;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+/* About Section */
+.about-template {
+    background-color: var(--secondary-color);
+    border-left: 5px solid var(--primary-color);
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+.about-template p {
+    margin-bottom: 10px;
+}
+
+.about-template ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+/* Form Styling */
+.form-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    background: var(--secondary-color);
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.form-group input[type="number"],
+.form-group input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1em;
+    background-color: #fff;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.form-group input[type="number"]:focus,
+.form-group input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.2);
+}
+
+.button-group {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none; /* For link buttons */
+    display: inline-block; /* For link buttons */
+}
+
+.btn:hover {
+    background-color: #004494;
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Dashboard Specifics */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    border-top: 5px solid;
+}
+
+.card.projected { border-color: var(--primary-color); }
+.card.actual { border-color: var(--success-color); }
+.card.difference { border-color: var(--neutral-color); }
+.card.difference.positive { border-color: var(--success-color); }
+.card.difference.negative { border-color: var(--danger-color); }
+
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.6em;
+    color: var(--primary-color);
+}
+
+.card p {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.card.difference p.positive-diff {
+    color: var(--success-color);
+}
+
+.card.difference p.negative-diff {
+    color: var(--danger-color);
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden; /* Ensures rounded corners on table */
+    box-shadow: var(--box-shadow);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background-color: var(--header-bg);
+    color: var(--primary-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:nth-child(even) {
+    background-color: #fcfcfc;
+}
+
+.total-row td {
+    font-weight: 700;
+    background-color: #e6f2ff; /* Lighter primary background */
+    color: var(--primary-color);
+}
+
+.subtotal-row td {
+    font-weight: 600;
+    background-color: #f0f8ff; /* Even lighter background */
+    color: #444;
+}
+
+/* Dashboard specific text colors for differences */
+.diff-positive {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.diff-negative {
+    color: var(--danger-color);
+    font-weight: 600;
+}
+
+.diff-neutral {
+    color: var(--neutral-color);
+    font-weight: 600;
+}
+
+/* Go back button */
+.back-btn-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 10px auto;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .summary-cards,
+    .form-section {
+        grid-template-columns: 1fr;
+    }
+
+    .card h3 {
+        font-size: 1.4em;
+    }
+
+    .card p {
+        font-size: 1.8em;
+    }
+
+    th, td {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+
+    .form-group input {
+        font-size: 0.9em;
+    }
+}

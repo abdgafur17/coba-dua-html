@@ -3,369 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Data Keuangan & Tabungan ✍️</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 25px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
-        .nav-button-top {
-            display: flex;
-            justify-content: flex-start;
-            width: 100%;
-            max-width: 700px;
-            margin-bottom: 25px;
-        }
-        .container {
-            background-color: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 100%;
-            max-width: 700px;
-            box-sizing: border-box;
-            text-align: center;
-            border: 1px solid #e0e6ed;
-        }
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-        h1 i {
-            font-size: 0.9em;
-            color: #3498db;
-        }
-        .form-section {
-            margin-bottom: 30px;
-            border: 1px solid #e0e6ed;
-            border-radius: 12px;
-            padding: 25px;
-            background-color: #f8fafd;
-            text-align: left;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-        .form-section h2 {
-            color: #34495e;
-            margin-top: 0;
-            margin-bottom: 18px;
-            font-size: 1.8em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .form-section h2 i {
-            color: #3498db;
-            font-size: 1.1em;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
-            font-size: 0.95em;
-        }
-        .form-group input[type="text"],
-        .form-group input[type="number"],
-        .form-group input[type="date"],
-        .form-group textarea {
-            width: calc(100% - 28px); /* Adjusted for padding */
-            padding: 14px;
-            border: 1px solid #dbe2ed; /* Border lebih halus */
-            border-radius: 8px;
-            font-size: 1em;
-            box-sizing: border-box;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-            outline: none;
-        }
-        .btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            margin-top: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        .btn:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-        }
-        .btn-back {
-            background-color: #95a5a6;
-            padding: 12px 20px;
-            font-size: 1em;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .btn-back:hover {
-            background-color: #7f8c8d;
-        }
-        .notification {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #28a745;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            z-index: 1000;
-            font-size: 0.95em;
-            white-space: nowrap;
-        }
-        .notification.show {
-            opacity: 1;
-        }
-        .notification.error {
-            background-color: #dc3545;
-        }
-        .nav-link {
-            text-decoration: none;
-            color: white;
-            display: block;
-        }
-
-        /* Media Queries for Responsiveness */
-        @media (max-width: 768px) {
-            body {
-                padding: 15px;
-            }
-            .container {
-                padding: 20px;
-                border-radius: 12px;
-            }
-            h1 {
-                font-size: 2em;
-                flex-direction: column;
-                gap: 10px;
-            }
-            .form-section {
-                padding: 18px;
-            }
-            .form-section h2 {
-                font-size: 1.4em;
-                flex-direction: column;
-                gap: 8px;
-            }
-            .form-group input, .form-group textarea {
-                padding: 10px;
-                font-size: 0.9em;
-            }
-            .btn {
-                padding: 12px 20px;
-                font-size: 1em;
-            }
-            .btn-back {
-                font-size: 0.9em;
-                padding: 10px 15px;
-            }
-            .notification {
-                width: calc(100% - 40px);
-                left: 20px;
-                transform: translateX(0);
-                text-align: center;
-                white-space: normal;
-            }
-        }
-    </style>
+    <title>Input Anggaran Bulanan Pribadi</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="nav-button-top">
-        <button class="btn btn-back"><a href="index.html" class="nav-link"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard</a></button>
-    </div>
     <div class="container">
-        <h1><i class="fas fa-pencil-alt"></i> Input Data Keuangan & Tabungan</h1>
+        <h1>Anggaran Bulanan Pribadi</h1>
 
-        <div class="form-section">
-            <h2><i class="fas fa-money-check-alt"></i> Pemasukan 💰</h2>
-            <div class="form-group">
-                <label for="pemasukanAmount">Jumlah (Rp)</label>
-                <input type="number" id="pemasukanAmount" placeholder="Contoh: 500000" min="0" step="any">
-            </div>
-            <div class="form-group">
-                <label for="pemasukanDescription">Deskripsi</label>
-                <input type="text" id="pemasukanDescription" placeholder="Contoh: Gaji bulanan">
-            </div>
-            <div class="form-group">
-                <label for="pemasukanDate">Tanggal</label>
-                <input type="date" id="pemasukanDate">
-            </div>
-            <button class="btn" onclick="addEntry('pemasukan')">Tambah Pemasukan</button>
+        <div class="about-template">
+            <h2>Tentang Templat ini</h2>
+            <p>Gunakan lembar kerja Anggaran Bulanan Pribadi ini untuk mencatat Proyeksi Pendapatan dan Pendapatan Aktual Bulanan serta Proyeksi Biaya dan Biaya Aktual.</p>
+            <p>Masukkan pengeluaran yang dihabiskan pada berbagai kategori dalam tabel masing-masing.</p>
+            <p>Proyeksi Saldo, Saldo Aktual, dan Selisih akan dihitung secara otomatis di Dashboard.</p>
+            <p><strong>Catatan:</strong></p>
+            <ul>
+                <li>Pastikan semua angka yang Anda masukkan adalah nominal mata uang (misal: 1500000).</li>
+                <li>Gunakan tombol "Simpan & Lihat Dashboard" untuk melihat ringkasan anggaran Anda.</li>
+            </ul>
         </div>
 
-        <div class="form-section">
-            <h2><i class="fas fa-receipt"></i> Pengeluaran 💸</h2>
-            <div class="form-group">
-                <label for="pengeluaranAmount">Jumlah (Rp)</label>
-                <input type="number" id="pengeluaranAmount" placeholder="Contoh: 150000" min="0" step="any">
-            </div>
-            <div class="form-group">
-                <label for="pengeluaranDescription">Deskripsi</label>
-                <input type="text" id="pengeluaranDescription" placeholder="Contoh: Belanja kebutuhan">
-            </div>
-            <div class="form-group">
-                <label for="pengeluaranDate">Tanggal</label>
-                <input type="date" id="pengeluaranDate">
-            </div>
-            <button class="btn" onclick="addEntry('pengeluaran')">Tambah Pengeluaran</button>
-        </div>
+        <h2>Formulir Penginputan Anggaran</h2>
 
         <div class="form-section">
-            <h2><i class="fas fa-handshake-alt-slash"></i> Utang 🤝</h2>
             <div class="form-group">
-                <label for="utangAmount">Jumlah (Rp)</label>
-                <input type="number" id="utangAmount" placeholder="Contoh: 200000" min="0" step="any">
+                <h3>Kalkulasi Pendapatan Bulanan (Proyeksi)</h3>
+                <label for="proj_income1">Pendapatan 1 (Proyeksi)</label>
+                <input type="number" id="proj_income1" value="0">
+
+                <label for="proj_additional_income">Pendapatan tambahan (Proyeksi)</label>
+                <input type="number" id="proj_additional_income" value="0">
             </div>
+
             <div class="form-group">
-                <label for="utangDescription">Deskripsi</label>
-                <input type="text" id="utangDescription" placeholder="Contoh: Pinjaman ke teman">
+                <h3>Pendapatan Bulanan Sebenarnya (Aktual)</h3>
+                <label for="actual_income1">Pendapatan 1 (Aktual)</label>
+                <input type="number" id="actual_income1" value="0">
+
+                <label for="actual_mandiri_balance">Saldo Bank Mandiri (Aktual)</label>
+                <input type="number" id="actual_mandiri_balance" value="0">
+
+                <label for="actual_additional_income">Pendapatan tambahan (Aktual)</label>
+                <input type="number" id="actual_additional_income" value="0">
             </div>
+
             <div class="form-group">
-                <label for="utangDate">Tanggal</label>
-                <input type="date" id="utangDate">
+                <h3>Saldo Awal</h3>
+                <label for="uang_dana">Uang Dana</label>
+                <input type="number" id="uang_dana" value="0">
+
+                <label for="uang_bca">Uang di BCA</label>
+                <input type="number" id="uang_bca" value="0">
+
+                <label for="real_duit_aktual">Real Duit Aktual</label>
+                <input type="number" id="real_duit_aktual" value="0">
             </div>
-            <button class="btn" onclick="addEntry('utang')">Tambah Utang</button>
         </div>
 
+        <h2>Pengeluaran Bulanan</h2>
         <div class="form-section">
-            <h2><i class="fas fa-gem"></i> Tabungan Emas ✨</h2>
+            <!-- TRANSPORTASI -->
             <div class="form-group">
-                <label for="emasAmount">Jumlah (gram)</label>
-                <input type="number" id="emasAmount" placeholder="Contoh: 0.5" min="0" step="0.01">
+                <h3>TRANSPORTASI</h3>
+                <label for="trans_bensin_proj">Bensin (Proyeksi)</label>
+                <input type="number" id="trans_bensin_proj" value="0">
+                <label for="trans_bensin_actual">Bensin (Aktual)</label>
+                <input type="number" id="trans_bensin_actual" value="0">
+
+                <label for="trans_parkir_proj">Parkir (Proyeksi)</label>
+                <input type="number" id="trans_parkir_proj" value="0">
+                <label for="trans_parkir_actual">Parkir (Aktual)</label>
+                <input type="number" id="trans_parkir_actual" value="0">
+
+                <label for="trans_tol_proj">Tol (Proyeksi)</label>
+                <input type="number" id="trans_tol_proj" value="0">
+                <label for="trans_tol_actual">Tol (Aktual)</label>
+                <input type="number" id="trans_tol_actual" value="0">
             </div>
+
+            <!-- UTILITAS -->
             <div class="form-group">
-                <label for="emasDescription">Deskripsi</label>
-                <input type="text" id="emasDescription" placeholder="Contoh: Beli emas Antam">
+                <h3>UTILITAS</h3>
+                <label for="util_listrik_proj">Listrik (Proyeksi)</label>
+                <input type="number" id="util_listrik_proj" value="0">
+                <label for="util_listrik_actual">Listrik (Aktual)</label>
+                <input type="number" id="util_listrik_actual" value="0">
+
+                <label for="util_air_proj">Air (Proyeksi)</label>
+                <input type="number" id="util_air_proj" value="0">
+                <label for="util_air_actual">Air (Aktual)</label>
+                <input type="number" id="util_air_actual" value="0">
+
+                <label for="util_internet_proj">Internet (Proyeksi)</label>
+                <input type="number" id="util_internet_proj" value="0">
+                <label for="util_internet_actual">Internet (Aktual)</label>
+                <input type="number" id="util_internet_actual" value="0">
             </div>
+
+            <!-- KOMUNIKASI -->
             <div class="form-group">
-                <label for="emasDate">Tanggal</label>
-                <input type="date" id="emasDate">
+                <h3>KOMUNIKASI</h3>
+                <label for="kom_pulsa_proj">Pulsa HP (Proyeksi)</label>
+                <input type="number" id="kom_pulsa_proj" value="0">
+                <label for="kom_pulsa_actual">Pulsa HP (Aktual)</label>
+                <input type="number" id="kom_pulsa_actual" value="0">
             </div>
-            <button class="btn" onclick="addEntry('emas')">Tambah Emas</button>
+
+            <!-- ASURANSI -->
+            <div class="form-group">
+                <h3>ASURANSI</h3>
+                <label for="asuransi_admin_bca_proj">Admin BCA (Proyeksi)</label>
+                <input type="number" id="asuransi_admin_bca_proj" value="0">
+                <label for="asuransi_admin_bca_actual">Admin BCA (Aktual)</label>
+                <input type="number" id="asuransi_admin_bca_actual" value="0">
+            </div>
+
+            <!-- MAKANAN -->
+            <div class="form-group">
+                <h3>MAKANAN</h3>
+                <label for="makan_bahan_proj">Bahan Makanan (Pasar) (Proyeksi)</label>
+                <input type="number" id="makan_bahan_proj" value="0">
+                <label for="makan_bahan_actual">Bahan Makanan (Pasar) (Aktual)</label>
+                <input type="number" id="makan_bahan_actual" value="0">
+
+                <label for="makan_belanja_proj">Belanja Bulanan (Proyeksi)</label>
+                <input type="number" id="makan_belanja_proj" value="0">
+                <label for="makan_belanja_actual">Belanja Bulanan (Aktual)</label>
+                <input type="number" id="makan_belanja_actual" value="0">
+
+                <label for="makan_gas_proj">Gas + Air leminerale (Proyeksi)</label>
+                <input type="number" id="makan_gas_proj" value="0">
+                <label for="makan_gas_actual">Gas + Air leminerale (Aktual)</label>
+                <input type="number" id="makan_gas_actual" value="0">
+            </div>
+
+            <!-- PELIHARAAN -->
+            <div class="form-group">
+                <h3>PELIHARAAN</h3>
+                <label for="peliharaan_proj">Pengeluaran Peliharaan (Proyeksi)</label>
+                <input type="number" id="peliharaan_proj" value="0">
+                <label for="peliharaan_actual">Pengeluaran Peliharaan (Aktual)</label>
+                <input type="number" id="peliharaan_actual" value="0">
+            </div>
+
+            <!-- TABUNGAN ATAU INVESTASI -->
+            <div class="form-group">
+                <h3>TABUNGAN / INVESTASI</h3>
+                <label for="tabung_tabungan_proj">Tabungan (Proyeksi)</label>
+                <input type="number" id="tabung_tabungan_proj" value="0">
+                <label for="tabung_tabungan_actual">Tabungan (Aktual)</label>
+                <input type="number" id="tabung_tabungan_actual" value="0">
+            </div>
+
+            <!-- HADIAH DAN DONASI -->
+            <div class="form-group">
+                <h3>HADIAH DAN DONASI</h3>
+                <label for="hadiah_kasih_mama_proj">Kasih Mama (Proyeksi)</label>
+                <input type="number" id="hadiah_kasih_mama_proj" value="0">
+                <label for="hadiah_kasih_mama_actual">Kasih Mama (Aktual)</label>
+                <input type="number" id="hadiah_kasih_mama_actual" value="0">
+            </div>
+
+            <!-- Tambahan Hiburan / Lain-lain -->
+            <div class="form-group">
+                <h3>TAMBAHAN HIBURAN / LAIN-LAIN</h3>
+                <label for="hiburan_proj">Pengeluaran Hiburan (Proyeksi)</label>
+                <input type="number" id="hiburan_proj" value="0">
+                <label for="hiburan_actual">Pengeluaran Hiburan (Aktual)</label>
+                <input type="number" id="hiburan_actual" value="0">
+            </div>
+
+            <!-- PERAWATAN PRIBADI -->
+            <div class="form-group">
+                <h3>PERAWATAN PRIBADI</h3>
+                <label for="perawatan_proj">Pengeluaran Perawatan (Proyeksi)</label>
+                <input type="number" id="perawatan_proj" value="0">
+                <label for="perawatan_actual">Pengeluaran Perawatan (Aktual)</label>
+                <input type="number" id="perawatan_actual" value="0">
+            </div>
+
+            <!-- HUKUM -->
+            <div class="form-group">
+                <h3>HUKUM</h3>
+                <label for="hukum_proj">Pengeluaran Hukum (Proyeksi)</label>
+                <input type="number" id="hukum_proj" value="0">
+                <label for="hukum_actual">Pengeluaran Hukum (Aktual)</label>
+                <input type="number" id="hukum_actual" value="0">
+            </div>
+            
         </div>
 
-        <div class="form-section">
-            <h2><i class="fas fa-piggy-bank"></i> Tabungan Rupiah 🏦</h2>
-            <div class="form-group">
-                <label for="tabunganRupiahAmount">Jumlah (Rp)</label>
-                <input type="number" id="tabunganRupiahAmount" placeholder="Contoh: 100000" min="0" step="any">
-            </div>
-            <div class="form-group">
-                <label for="tabunganRupiahDescription">Deskripsi</label>
-                <input type="text" id="tabunganRupiahDescription" placeholder="Contoh: Transfer ke tabungan">
-            </div>
-            <div class="form-group">
-                <label for="tabunganRupiahDate">Tanggal</label>
-                <input type="date" id="tabunganRupiahDate">
-            </div>
-            <button class="btn" onclick="addEntry('tabunganRupiah')">Tambah Tabungan</button>
+        <div class="button-group">
+            <button class="btn" onclick="saveData()">Simpan & Lihat Dashboard</button>
         </div>
-
     </div>
 
-    <div id="notification" class="notification"></div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Set default date for today (or current month if desired)
-            const today = new Date();
-            const yyyy = today.getFullYear();
-            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-            const dd = String(today.getDate()).padStart(2, '0');
-            const todayFormatted = `${yyyy}-${mm}-${dd}`;
-
-            // You can set it to the first day of the current month if preferred for inputting monthly data
-            // const firstDayOfMonthFormatted = `${yyyy}-${mm}-01`;
-
-            document.getElementById('pemasukanDate').value = todayFormatted;
-            document.getElementById('pengeluaranDate').value = todayFormatted;
-            document.getElementById('utangDate').value = todayFormatted;
-            document.getElementById('emasDate').value = todayFormatted;
-            document.getElementById('tabunganRupiahDate').value = todayFormatted;
-        });
-
-        function loadData() {
-            const dataString = localStorage.getItem('financialData');
-            // Ensure initialData structure is compatible
-            const initialData = { pemasukan: [], pengeluaran: [], utang: [], emas: [], tabunganRupiah: [] };
-            return dataString ? { ...initialData, ...JSON.parse(dataString) } : initialData;
-        }
-
-        function saveData(data) {
-            localStorage.setItem('financialData', JSON.stringify(data));
-        }
-
-        function addEntry(type) {
-            const amountInput = document.getElementById(`${type}Amount`);
-            const descriptionInput = document.getElementById(`${type}Description`);
-            const dateInput = document.getElementById(`${type}Date`);
-
-            const amount = parseFloat(amountInput.value);
-            const description = descriptionInput.value.trim();
-            const date = dateInput.value;
-
-            if (isNaN(amount) || amount < 0) {
-                showNotification('Jumlah harus berupa angka positif atau nol.', 'error');
-                return;
-            }
-            if (!description) {
-                showNotification('Deskripsi tidak boleh kosong.', 'error');
-                return;
-            }
-            if (!date) {
-                showNotification('Tanggal tidak boleh kosong.', 'error');
-                return;
-            }
-
-            const data = loadData();
-            data[type].push({ amount: amount, description: description, date: date });
-            saveData(data);
-            showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} berhasil ditambahkan!`, 'success');
-
-            // Clear form fields, keep date
-            amountInput.value = '';
-            descriptionInput.value = '';
-        }
-
-        function showNotification(message, type = 'success') {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = `notification show ${type}`;
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-    </script>
+    <script src="input.js"></script>
 </body>
 </html>
