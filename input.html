@@ -3,35 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Data Keuangan</title>
+    <title>Input Data Keuangan & Tabungan</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #e0f2f7, #c1e4f4); /* Softer blue gradient */
+            padding: 15px;
+            background: linear-gradient(135deg, #e0f2f7, #c1e4f4);
             color: #333;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-        }
-        .container {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            padding: 30px;
-            width: 90%;
-            max-width: 700px; /* Slightly wider for better form layout */
             box-sizing: border-box;
-            text-align: center;
-            backdrop-filter: blur(5px);
-        }
-        h1 {
-            color: #2a52be;
-            margin-bottom: 25px;
-            font-size: 2.5em;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
         .nav-button-top {
             display: flex;
@@ -39,6 +23,23 @@
             width: 100%;
             max-width: 700px;
             margin-bottom: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            padding: 25px;
+            width: 100%;
+            max-width: 700px;
+            box-sizing: border-box;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+        h1 {
+            color: #2a52be;
+            margin-bottom: 20px;
+            font-size: 2.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
         .form-section {
             margin-bottom: 25px;
@@ -68,9 +69,9 @@
         .form-group input[type="number"],
         .form-group input[type="date"],
         .form-group textarea {
-            width: calc(100% - 24px); /* Adjusted for padding */
+            width: calc(100% - 24px);
             padding: 12px;
-            border: 1px solid #cceeff; /* Lighter blue border */
+            border: 1px solid #cceeff;
             border-radius: 8px;
             font-size: 1em;
             box-sizing: border-box;
@@ -101,7 +102,6 @@
         }
         .btn-back {
             background-color: #8bbbe4;
-            margin-top: 20px;
             padding: 10px 20px;
             font-size: 1em;
             display: inline-flex;
@@ -109,77 +109,60 @@
             gap: 5px;
         }
         .btn-back:hover {
-            background-color: #7aa9d1;
+            background-color: #7aa9cb;
         }
         .notification {
             position: fixed;
-            bottom: 30px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             background-color: #4CAF50;
             color: white;
-            padding: 15px 25px;
+            padding: 12px 20px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
             z-index: 1000;
+            font-size: 0.9em;
+            white-space: nowrap;
         }
         .notification.show {
             opacity: 1;
         }
-        .data-table-container {
-            margin-top: 40px;
-            text-align: left;
-        }
-        .data-table-container h2 {
-            color: #2a52be;
-            margin-bottom: 15px;
-            font-size: 1.8em;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            background-color: #ffffff;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        th, td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
-            text-align: left;
-        }
-        th {
-            background-color: #e8f0fe;
-            color: #3f60b4;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.9em;
-        }
-        tr:last-child td {
-            border-bottom: none;
-        }
-        tr:hover {
-            background-color: #f5fafd;
-        }
-        .delete-btn {
-            background-color: #f44336;
-            color: white;
-            border: none;
-            padding: 6px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.85em;
-            transition: background-color 0.3s ease;
-        }
-        .delete-btn:hover {
-            background-color: #d32f2f;
-        }
         .nav-link {
             text-decoration: none;
             color: white;
+            display: block;
+        }
+
+        /* Media Queries for smaller screens */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+                border-radius: 8px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .form-section {
+                padding: 15px;
+            }
+            .form-section h2 {
+                font-size: 1.4em;
+            }
+            .form-group input, .form-group textarea {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+            .btn {
+                padding: 10px 15px;
+                font-size: 0.95em;
+            }
+            .btn-back {
+                font-size: 0.9em;
+                padding: 8px 15px;
+            }
         }
     </style>
 </head>
@@ -188,13 +171,13 @@
         <button class="btn btn-back"><a href="index.html" class="nav-link">⬅️ Kembali ke Dashboard</a></button>
     </div>
     <div class="container">
-        <h1>Input Data Keuangan ✍️</h1>
+        <h1>Input Data Keuangan & Tabungan ✍️</h1>
 
         <div class="form-section">
             <h2>Pemasukan</h2>
             <div class="form-group">
                 <label for="pemasukanAmount">Jumlah (Rp)</label>
-                <input type="number" id="pemasukanAmount" placeholder="Contoh: 500000" min="0">
+                <input type="number" id="pemasukanAmount" placeholder="Contoh: 500000" min="0" step="any">
             </div>
             <div class="form-group">
                 <label for="pemasukanDescription">Deskripsi</label>
@@ -211,7 +194,7 @@
             <h2>Pengeluaran</h2>
             <div class="form-group">
                 <label for="pengeluaranAmount">Jumlah (Rp)</label>
-                <input type="number" id="pengeluaranAmount" placeholder="Contoh: 150000" min="0">
+                <input type="number" id="pengeluaranAmount" placeholder="Contoh: 150000" min="0" step="any">
             </div>
             <div class="form-group">
                 <label for="pengeluaranDescription">Deskripsi</label>
@@ -228,7 +211,7 @@
             <h2>Utang</h2>
             <div class="form-group">
                 <label for="utangAmount">Jumlah (Rp)</label>
-                <input type="number" id="utangAmount" placeholder="Contoh: 200000" min="0">
+                <input type="number" id="utangAmount" placeholder="Contoh: 200000" min="0" step="any">
             </div>
             <div class="form-group">
                 <label for="utangDescription">Deskripsi</label>
@@ -241,71 +224,61 @@
             <button class="btn" onclick="addEntry('utang')">Tambah Utang</button>
         </div>
 
-        <div class="data-table-container">
-            <h2>Histori Pemasukan</h2>
-            <table id="pemasukanTable">
-                <thead>
-                    <tr>
-                        <th>Tanggal</th>
-                        <th>Deskripsi</th>
-                        <th>Jumlah</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    </tbody>
-            </table>
-
-            <h2>Histori Pengeluaran</h2>
-            <table id="pengeluaranTable">
-                <thead>
-                    <tr>
-                        <th>Tanggal</th>
-                        <th>Deskripsi</th>
-                        <th>Jumlah</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    </tbody>
-            </table>
-
-            <h2>Histori Utang</h2>
-            <table id="utangTable">
-                <thead>
-                    <tr>
-                        <th>Tanggal</th>
-                        <th>Deskripsi</th>
-                        <th>Jumlah</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    </tbody>
-            </table>
+        <div class="form-section">
+            <h2>Tabungan Emas</h2>
+            <div class="form-group">
+                <label for="emasAmount">Jumlah (gram)</label>
+                <input type="number" id="emasAmount" placeholder="Contoh: 0.5" min="0" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="emasDescription">Deskripsi</label>
+                <input type="text" id="emasDescription" placeholder="Contoh: Beli emas Antam">
+            </div>
+            <div class="form-group">
+                <label for="emasDate">Tanggal</label>
+                <input type="date" id="emasDate">
+            </div>
+            <button class="btn" onclick="addEntry('emas')">Tambah Emas</button>
         </div>
+
+        <div class="form-section">
+            <h2>Tabungan Rupiah</h2>
+            <div class="form-group">
+                <label for="tabunganRupiahAmount">Jumlah (Rp)</label>
+                <input type="number" id="tabunganRupiahAmount" placeholder="Contoh: 100000" min="0" step="any">
+            </div>
+            <div class="form-group">
+                <label for="tabunganRupiahDescription">Deskripsi</label>
+                <input type="text" id="tabunganRupiahDescription" placeholder="Contoh: Transfer ke tabungan">
+            </div>
+            <div class="form-group">
+                <label for="tabunganRupiahDate">Tanggal</label>
+                <input type="date" id="tabunganRupiahDate">
+            </div>
+            <button class="btn" onclick="addEntry('tabunganRupiah')">Tambah Tabungan</button>
+        </div>
+
     </div>
 
     <div id="notification" class="notification"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            renderTables();
+            // No tables to render on this page anymore
         });
 
         function loadData() {
             const dataString = localStorage.getItem('financialData');
-            return dataString ? JSON.parse(dataString) : { pemasukan: [], pengeluaran: [], utang: [] };
+            // Tambahkan 'emas' dan 'tabunganRupiah' jika belum ada di data
+            const initialData = { pemasukan: [], pengeluaran: [], utang: [], emas: [], tabunganRupiah: [] };
+            return dataString ? { ...initialData, ...JSON.parse(dataString) } : initialData;
         }
 
         function saveData(data) {
             localStorage.setItem('financialData', JSON.stringify(data));
-            // When data is saved/modified, tell the dashboard to reload
+            // Trigger dashboard to reload data
             if (window.opener && typeof window.opener.loadDataAndRender === 'function') {
                 window.opener.loadDataAndRender();
-            } else if (window.parent && typeof window.parent.loadDataAndRender === 'function') {
-                // For cases where input.html might be in an iframe (though not typically for this setup)
-                window.parent.loadDataAndRender();
             }
         }
 
@@ -318,8 +291,8 @@
             const description = descriptionInput.value.trim();
             const date = dateInput.value;
 
-            if (isNaN(amount) || amount <= 0) {
-                showNotification('Jumlah harus berupa angka positif.', 'red');
+            if (isNaN(amount) || amount < 0) { // Allow 0 for emas/rupiah if needed, but not for others
+                showNotification('Jumlah harus berupa angka positif atau nol.', 'red');
                 return;
             }
             if (!description) {
@@ -334,54 +307,16 @@
             const data = loadData();
             data[type].push({ amount: amount, description: description, date: date });
             saveData(data);
-            renderTables();
             showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} berhasil ditambahkan!`, 'green');
 
+            // Clear form fields
             amountInput.value = '';
             descriptionInput.value = '';
             dateInput.value = '';
         }
 
-        function deleteEntry(type, index) {
-            const data = loadData();
-            if (confirm(`Anda yakin ingin menghapus data ${type} ini?`)) {
-                data[type].splice(index, 1);
-                saveData(data);
-                renderTables();
-                showNotification(`Data ${type} berhasil dihapus.`, 'green');
-            }
-        }
-
-        function renderTables() {
-            const data = loadData();
-            renderTable('pemasukanTable', data.pemasukan, 'pemasukan');
-            renderTable('pengeluaranTable', data.pengeluaran, 'pengeluaran');
-            renderTable('utangTable', data.utang, 'utang');
-        }
-
-        function renderTable(tableId, entries, type) {
-            const tableBody = document.getElementById(tableId).getElementsByTagName('tbody')[0];
-            tableBody.innerHTML = '';
-
-            entries.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            entries.forEach((entry, index) => {
-                const row = tableBody.insertRow();
-                row.insertCell(0).textContent = entry.date;
-                row.insertCell(1).textContent = entry.description;
-                row.insertCell(2).textContent = formatRupiah(entry.amount);
-                const actionCell = row.insertCell(3);
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Hapus';
-                deleteButton.className = 'delete-btn';
-                deleteButton.onclick = () => deleteEntry(type, index);
-                actionCell.appendChild(deleteButton);
-            });
-        }
-
-        function formatRupiah(number) {
-            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
-        }
+        // The deleteEntry and renderTables functions are now exclusively in index.html
+        // because the tables are no longer here.
 
         function showNotification(message, type) {
             const notification = document.getElementById('notification');

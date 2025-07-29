@@ -9,96 +9,100 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #e0f2f7, #c1e4f4); /* Softer blue gradient */
+            padding: 15px; /* Sedikit padding untuk mobile */
+            background: linear-gradient(135deg, #e0f2f7, #c1e4f4);
             color: #333;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            box-sizing: border-box; /* Pastikan padding dihitung dalam lebar */
         }
         .container {
             background-color: #ffffff;
             border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
-            padding: 30px;
-            width: 90%;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            padding: 25px; /* Padding lebih kecil untuk mobile */
+            width: 100%; /* Lebar penuh untuk mobile */
             max-width: 900px;
             margin-bottom: 20px;
             text-align: center;
-            backdrop-filter: blur(5px); /* Subtle blur effect */
+            backdrop-filter: blur(5px);
+            box-sizing: border-box;
         }
         h1 {
-            color: #2a52be; /* Deeper blue */
-            margin-bottom: 25px;
-            font-size: 2.5em; /* Slightly larger */
+            color: #2a52be;
+            margin-bottom: 20px; /* Kurangi margin untuk mobile */
+            font-size: 2.2em; /* Ukuran font disesuaikan */
             text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
-        .summary-grid {
+        .summary-grid, .savings-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Sesuaikan untuk mobile */
+            gap: 15px; /* Kurangi gap untuk mobile */
+            margin-bottom: 25px; /* Kurangi margin untuk mobile */
         }
-        .summary-card {
-            background-color: #f0f8ff; /* Lighter blue for cards */
+        .summary-card, .saving-card {
+            background-color: #f0f8ff;
             border-radius: 10px;
-            padding: 20px;
+            padding: 18px; /* Padding lebih kecil */
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             text-align: left;
             transition: transform 0.2s ease;
         }
-        .summary-card:hover {
-            transform: translateY(-5px);
+        .summary-card:hover, .saving-card:hover {
+            transform: translateY(-3px);
         }
-        .summary-card h2 {
-            color: #3f60b4; /* Darker blue for headings */
+        .summary-card h2, .saving-card h2 {
+            color: #3f60b4;
             margin-top: 0;
-            font-size: 1.4em;
-            margin-bottom: 10px;
+            font-size: 1.2em; /* Ukuran font disesuaikan */
+            margin-bottom: 8px;
         }
-        .summary-card p {
-            font-size: 2em; /* Larger amount text */
+        .summary-card p, .saving-card p {
+            font-size: 1.6em; /* Ukuran font disesuaikan */
             font-weight: bold;
             color: #1a1a1a;
+            word-wrap: break-word; /* Pastikan teks panjang tidak overflow */
         }
         .buttons-container {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-            flex-wrap: wrap;
+            gap: 10px; /* Kurangi gap */
+            margin-top: 25px;
+            flex-wrap: wrap; /* Pastikan tombol wrap di mobile */
         }
         .btn {
-            background-color: #4a90e2; /* Vibrant blue */
+            background-color: #4a90e2;
             color: white;
             border: none;
-            padding: 14px 28px; /* Larger padding */
+            padding: 12px 20px; /* Padding lebih kecil */
             border-radius: 8px;
             cursor: pointer;
-            font-size: 1.15em;
+            font-size: 1em; /* Ukuran font disesuaikan */
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            white-space: nowrap; /* Mencegah teks tombol pecah */
         }
         .btn:hover {
             background-color: #3b7cd1;
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
         }
         .btn-secondary {
-            background-color: #8bbbe4; /* Lighter blue */
+            background-color: #8bbbe4;
         }
         .btn-secondary:hover {
             background-color: #7aa9d1;
         }
         #chartContainer {
-            margin-top: 40px;
+            margin-top: 30px;
             background-color: #ffffff;
-            border-radius: 15px; /* More rounded corners */
+            border-radius: 15px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            padding: 25px;
+            padding: 20px; /* Padding lebih kecil */
             width: 100%;
-            max-width: 650px; /* Slightly larger max width for chart */
+            max-width: 650px;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
@@ -107,8 +111,8 @@
         }
         #chartContainer h2 {
             color: #2a52be;
-            margin-bottom: 20px;
-            font-size: 1.8em;
+            margin-bottom: 15px;
+            font-size: 1.6em; /* Ukuran font disesuaikan */
         }
         canvas {
             max-width: 100%;
@@ -119,17 +123,19 @@
         }
         .notification {
             position: fixed;
-            bottom: 30px;
+            bottom: 20px; /* Posisi lebih rendah untuk mobile */
             left: 50%;
             transform: translateX(-50%);
             background-color: #4CAF50;
             color: white;
-            padding: 15px 25px;
+            padding: 12px 20px; /* Padding lebih kecil */
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
             z-index: 1000;
+            font-size: 0.9em; /* Ukuran font notifikasi */
+            white-space: nowrap; /* Mencegah teks notifikasi pecah */
         }
         .notification.show {
             opacity: 1;
@@ -137,6 +143,96 @@
         .nav-link {
             text-decoration: none;
             color: white;
+            display: block; /* Pastikan link mengisi tombol */
+        }
+
+        /* Styling for Data Tables */
+        .data-table-container {
+            margin-top: 35px; /* Margin lebih kecil */
+            text-align: left;
+            width: 100%; /* Lebar penuh */
+        }
+        .data-table-container h2 {
+            color: #2a52be;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            text-align: center; /* Judul tabel di tengah */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 10px 12px; /* Padding lebih kecil untuk tabel */
+            border-bottom: 1px solid #eee;
+            text-align: left;
+            font-size: 0.9em; /* Ukuran font lebih kecil */
+            word-wrap: break-word; /* Mencegah overflow teks */
+        }
+        th {
+            background-color: #e8f0fe;
+            color: #3f60b4;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:hover {
+            background-color: #f5fafd;
+        }
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 8px; /* Padding lebih kecil */
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em; /* Ukuran font lebih kecil */
+            transition: background-color 0.3s ease;
+        }
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+        /* Media Queries for smaller screens */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+                border-radius: 8px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .summary-grid, .savings-grid {
+                grid-template-columns: 1fr; /* Satu kolom di layar sangat kecil */
+            }
+            .summary-card p, .saving-card p {
+                font-size: 1.4em;
+            }
+            .btn {
+                padding: 10px 15px;
+                font-size: 0.95em;
+            }
+            #chartContainer {
+                padding: 15px;
+                border-radius: 10px;
+            }
+            #chartContainer h2 {
+                font-size: 1.4em;
+            }
+            th, td {
+                padding: 8px 10px;
+                font-size: 0.8em;
+            }
+            .delete-btn {
+                padding: 4px 6px;
+                font-size: 0.75em;
+            }
         }
     </style>
 </head>
@@ -163,6 +259,17 @@
             </div>
         </div>
 
+        <div class="savings-grid">
+            <div class="saving-card">
+                <h2>Tabungan Emas 🪙</h2>
+                <p id="totalEmas">0 gram</p>
+            </div>
+            <div class="saving-card">
+                <h2>Tabungan Rupiah 💵</h2>
+                <p id="totalTabunganRupiah">Rp 0</p>
+            </div>
+        </div>
+
         <div class="buttons-container">
             <button class="btn"><a href="input.html" class="nav-link">Tambah Data Keuangan ✍️</a></button>
             <button class="btn btn-secondary" id="exportData">Export Data 📤</button>
@@ -173,6 +280,78 @@
         <div id="chartContainer">
             <h2>Ringkasan Keuangan (Chart Pie) 📈</h2>
             <canvas id="myPieChart"></canvas>
+        </div>
+
+        <div class="data-table-container">
+            <h2>Histori Pemasukan</h2>
+            <table id="pemasukanTable">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Deskripsi</th>
+                        <th>Jumlah</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+
+            <h2>Histori Pengeluaran</h2>
+            <table id="pengeluaranTable">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Deskripsi</th>
+                        <th>Jumlah</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+
+            <h2>Histori Utang</h2>
+            <table id="utangTable">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Deskripsi</th>
+                        <th>Jumlah</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+
+            <h2>Histori Tabungan Emas</h2>
+            <table id="emasTable">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Deskripsi</th>
+                        <th>Jumlah (gram)</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+
+            <h2>Histori Tabungan Rupiah</h2>
+            <table id="tabunganRupiahTable">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Deskripsi</th>
+                        <th>Jumlah</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
         </div>
     </div>
 
@@ -189,23 +368,32 @@
             const data = loadData();
             updateDashboard(data);
             renderChart(data);
+            renderTables(data); // Render tables here
         }
 
         function loadData() {
             const dataString = localStorage.getItem('financialData');
-            return dataString ? JSON.parse(dataString) : { pemasukan: [], pengeluaran: [], utang: [] };
+            return dataString ? JSON.parse(dataString) : { pemasukan: [], pengeluaran: [], utang: [], emas: [], tabunganRupiah: [] };
+        }
+
+        function saveData(data) {
+            localStorage.setItem('financialData', JSON.stringify(data));
         }
 
         function updateDashboard(data) {
             const totalPemasukan = data.pemasukan.reduce((sum, item) => sum + parseFloat(item.amount), 0);
             const totalPengeluaran = data.pengeluaran.reduce((sum, item) => sum + parseFloat(item.amount), 0);
             const totalUtang = data.utang.reduce((sum, item) => sum + parseFloat(item.amount), 0);
+            const totalEmas = data.emas.reduce((sum, item) => sum + parseFloat(item.amount), 0);
+            const totalTabunganRupiah = data.tabunganRupiah.reduce((sum, item) => sum + parseFloat(item.amount), 0);
             const saldoAkhir = totalPemasukan - totalPengeluaran - totalUtang;
 
             document.getElementById('totalPemasukan').textContent = formatRupiah(totalPemasukan);
             document.getElementById('totalPengeluaran').textContent = formatRupiah(totalPengeluaran);
             document.getElementById('totalUtang').textContent = formatRupiah(totalUtang);
             document.getElementById('saldoAkhir').textContent = formatRupiah(saldoAkhir);
+            document.getElementById('totalEmas').textContent = `${totalEmas.toFixed(2)} gram`;
+            document.getElementById('totalTabunganRupiah').textContent = formatRupiah(totalTabunganRupiah);
         }
 
         function formatRupiah(number) {
@@ -230,9 +418,9 @@
                     datasets: [{
                         data: [totalPemasukan, totalPengeluaran, totalUtang],
                         backgroundColor: [
-                            'rgba(75, 192, 192, 0.8)', // Pemasukan (Teal)
-                            'rgba(255, 99, 132, 0.8)',  // Pengeluaran (Red)
-                            'rgba(255, 159, 64, 0.8)'   // Utang (Orange)
+                            'rgba(75, 192, 192, 0.8)',
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(255, 159, 64, 0.8)'
                         ],
                         borderColor: [
                             'rgba(75, 192, 192, 1)',
@@ -267,9 +455,47 @@
             });
         }
 
+        function renderTables(data) {
+            renderTable('pemasukanTable', data.pemasukan, 'pemasukan');
+            renderTable('pengeluaranTable', data.pengeluaran, 'pengeluaran');
+            renderTable('utangTable', data.utang, 'utang');
+            renderTable('emasTable', data.emas, 'emas', true); // Emas table with gram
+            renderTable('tabunganRupiahTable', data.tabunganRupiah, 'tabunganRupiah');
+        }
+
+        function renderTable(tableId, entries, type, isGram = false) {
+            const tableBody = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = '';
+
+            entries.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            entries.forEach((entry, index) => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).textContent = entry.date;
+                row.insertCell(1).textContent = entry.description;
+                row.insertCell(2).textContent = isGram ? `${parseFloat(entry.amount).toFixed(2)} gram` : formatRupiah(entry.amount);
+                const actionCell = row.insertCell(3);
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Hapus';
+                deleteButton.className = 'delete-btn';
+                deleteButton.onclick = () => deleteEntry(type, index);
+                actionCell.appendChild(deleteButton);
+            });
+        }
+
+        function deleteEntry(type, index) {
+            const data = loadData();
+            if (confirm(`Anda yakin ingin menghapus data ini?`)) {
+                data[type].splice(index, 1);
+                saveData(data);
+                loadDataAndRender(); // Re-render everything after deletion
+                showNotification(`Data berhasil dihapus.`, 'green');
+            }
+        }
+
         document.getElementById('exportData').addEventListener('click', () => {
             const data = localStorage.getItem('financialData');
-            if (!data || JSON.parse(data).pemasukan.length === 0 && JSON.parse(data).pengeluaran.length === 0 && JSON.parse(data).utang.length === 0) {
+            if (!data || JSON.parse(data).pemasukan.length === 0 && JSON.parse(data).pengeluaran.length === 0 && JSON.parse(data).utang.length === 0 && JSON.parse(data).emas.length === 0 && JSON.parse(data).tabunganRupiah.length === 0) {
                 showNotification('Tidak ada data untuk diexport.', 'orange');
                 return;
             }
@@ -297,9 +523,12 @@
                 reader.onload = (e) => {
                     try {
                         const importedData = JSON.parse(e.target.result);
+                        // Basic validation for imported data structure
                         if (importedData.pemasukan && Array.isArray(importedData.pemasukan) &&
                             importedData.pengeluaran && Array.isArray(importedData.pengeluaran) &&
-                            importedData.utang && Array.isArray(importedData.utang)) {
+                            importedData.utang && Array.isArray(importedData.utang) &&
+                            importedData.emas && Array.isArray(importedData.emas) &&
+                            importedData.tabunganRupiah && Array.isArray(importedData.tabunganRupiah)) {
                             localStorage.setItem('financialData', JSON.stringify(importedData));
                             loadDataAndRender();
                             showNotification('Data berhasil diimport!', 'green');
