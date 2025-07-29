@@ -1,361 +1,73 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Input Data Keuangan & Tabungan</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Financial Input Form</title>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 25px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
-        .nav-button-top {
-            display: flex;
-            justify-content: flex-start;
-            width: 100%;
-            max-width: 700px;
-            margin-bottom: 25px;
-        }
-        .container {
-            background-color: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 100%;
-            max-width: 700px;
-            box-sizing: border-box;
-            text-align: center;
-            border: 1px solid #e0e6ed;
+            padding: 20px;
         }
         h1 {
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
+            text-align: center;
+            color: #333;
         }
-        h1 i {
-            font-size: 0.9em;
-            color: #3498db;
-        }
-        .form-section {
-            margin-bottom: 30px;
-            border: 1px solid #e0e6ed;
-            border-radius: 12px;
-            padding: 25px;
-            background-color: #f8fafd;
-            text-align: left;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-        .form-section h2 {
-            color: #34495e;
-            margin-top: 0;
-            margin-bottom: 18px;
-            font-size: 1.8em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .form-section h2 i {
-            color: #3498db;
-            font-size: 1.1em;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
+        input, button {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
-            font-size: 0.95em;
+            margin: 10px auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 80%;
         }
-        .form-group input[type="text"],
-        .form-group input[type="number"],
-        .form-group input[type="date"],
-        .form-group textarea {
-            width: calc(100% - 28px); /* Adjusted for padding */
-            padding: 14px;
-            border: 1px solid #dbe2ed; /* Border lebih halus */
-            border-radius: 8px;
-            font-size: 1em;
-            box-sizing: border-box;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-            outline: none;
-        }
-        .btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            margin-top: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        .btn:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-        }
-        .btn-back {
-            background-color: #95a5a6;
-            padding: 12px 20px;
-            font-size: 1em;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .btn-back:hover {
-            background-color: #7f8c8d;
-        }
-        .notification {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
+        button {
             background-color: #28a745;
             color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            z-index: 1000;
-            font-size: 0.95em;
-            white-space: nowrap;
+            border: none;
+            cursor: pointer;
         }
-        .notification.show {
-            opacity: 1;
-        }
-        .notification.error {
-            background-color: #dc3545;
-        }
-        .nav-link {
-            text-decoration: none;
-            color: white;
-            display: block;
-        }
-
-        /* Media Queries for Responsiveness */
-        @media (max-width: 768px) {
-            body {
-                padding: 15px;
-            }
-            .container {
-                padding: 20px;
-                border-radius: 12px;
-            }
-            h1 {
-                font-size: 2em;
-                flex-direction: column;
-                gap: 10px;
-            }
-            .form-section {
-                padding: 18px;
-            }
-            .form-section h2 {
-                font-size: 1.4em;
-                flex-direction: column;
-                gap: 8px;
-            }
-            .form-group input, .form-group textarea {
-                padding: 10px;
-                font-size: 0.9em;
-            }
-            .btn {
-                padding: 12px 20px;
-                font-size: 1em;
-            }
-            .btn-back {
-                font-size: 0.9em;
-                padding: 10px 15px;
-            }
-            .notification {
-                width: calc(100% - 40px);
-                left: 20px;
-                transform: translateX(0);
-                text-align: center;
-                white-space: normal;
-            }
+        button:hover {
+            background-color: #218838;
         }
     </style>
 </head>
 <body>
-    <div class="nav-button-top">
-        <button class="btn btn-back"><a href="index.html" class="nav-link"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard</a></button>
-    </div>
-    <div class="container">
-        <h1><i class="fas fa-pencil-alt"></i> Input Data Keuangan & Tabungan</h1>
-
-        <div class="form-section">
-            <h2><i class="fas fa-money-check-alt"></i> Pemasukan</h2>
-            <div class="form-group">
-                <label for="pemasukanAmount">Jumlah (Rp)</label>
-                <input type="number" id="pemasukanAmount" placeholder="Contoh: 500000" min="0" step="any">
-            </div>
-            <div class="form-group">
-                <label for="pemasukanDescription">Deskripsi</label>
-                <input type="text" id="pemasukanDescription" placeholder="Contoh: Gaji bulanan">
-            </div>
-            <div class="form-group">
-                <label for="pemasukanDate">Tanggal</label>
-                <input type="date" id="pemasukanDate">
-            </div>
-            <button class="btn" onclick="addEntry('pemasukan')">Tambah Pemasukan</button>
-        </div>
-
-        <div class="form-section">
-            <h2><i class="fas fa-receipt"></i> Pengeluaran</h2>
-            <div class="form-group">
-                <label for="pengeluaranAmount">Jumlah (Rp)</label>
-                <input type="number" id="pengeluaranAmount" placeholder="Contoh: 150000" min="0" step="any">
-            </div>
-            <div class="form-group">
-                <label for="pengeluaranDescription">Deskripsi</label>
-                <input type="text" id="pengeluaranDescription" placeholder="Contoh: Belanja kebutuhan">
-            </div>
-            <div class="form-group">
-                <label for="pengeluaranDate">Tanggal</label>
-                <input type="date" id="pengeluaranDate">
-            </div>
-            <button class="btn" onclick="addEntry('pengeluaran')">Tambah Pengeluaran</button>
-        </div>
-
-        <div class="form-section">
-            <h2><i class="fas fa-handshake-alt-slash"></i> Utang</h2>
-            <div class="form-group">
-                <label for="utangAmount">Jumlah (Rp)</label>
-                <input type="number" id="utangAmount" placeholder="Contoh: 200000" min="0" step="any">
-            </div>
-            <div class="form-group">
-                <label for="utangDescription">Deskripsi</label>
-                <input type="text" id="utangDescription" placeholder="Contoh: Pinjaman ke teman">
-            </div>
-            <div class="form-group">
-                <label for="utangDate">Tanggal</label>
-                <input type="date" id="utangDate">
-            </div>
-            <button class="btn" onclick="addEntry('utang')">Tambah Utang</button>
-        </div>
-
-        <div class="form-section">
-            <h2><i class="fas fa-gem"></i> Tabungan Emas</h2>
-            <div class="form-group">
-                <label for="emasAmount">Jumlah (gram)</label>
-                <input type="number" id="emasAmount" placeholder="Contoh: 0.5" min="0" step="0.01">
-            </div>
-            <div class="form-group">
-                <label for="emasDescription">Deskripsi</label>
-                <input type="text" id="emasDescription" placeholder="Contoh: Beli emas Antam">
-            </div>
-            <div class="form-group">
-                <label for="emasDate">Tanggal</label>
-                <input type="date" id="emasDate">
-            </div>
-            <button class="btn" onclick="addEntry('emas')">Tambah Emas</button>
-        </div>
-
-        <div class="form-section">
-            <h2><i class="fas fa-piggy-bank"></i> Tabungan Rupiah</h2>
-            <div class="form-group">
-                <label for="tabunganRupiahAmount">Jumlah (Rp)</label>
-                <input type="number" id="tabunganRupiahAmount" placeholder="Contoh: 100000" min="0" step="any">
-            </div>
-            <div class="form-group">
-                <label for="tabunganRupiahDescription">Deskripsi</label>
-                <input type="text" id="tabunganRupiahDescription" placeholder="Contoh: Transfer ke tabungan">
-            </div>
-            <div class="form-group">
-                <label for="tabunganRupiahDate">Tanggal</label>
-                <input type="date" id="tabunganRupiahDate">
-            </div>
-            <button class="btn" onclick="addEntry('tabunganRupiah')">Tambah Tabungan</button>
-        </div>
-
-    </div>
-
-    <div id="notification" class="notification"></div>
+    <h1>Input Financial Data</h1>
+    <input type="number" id="income" placeholder="Enter Income" />
+    <input type="number" id="expenses" placeholder="Enter Expenses" />
+    <input type="number" id="debts" placeholder="Enter Debts" />
+    <button id="saveBtn">Save Data</button>
+    <button id="navigateBtn">Back to Dashboard</button>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // No tables to render on this page anymore
+        // Function to show a notification
+        function showNotification(message) {
+            alert(message);
+        }
+
+        // Handle data saving
+        document.getElementById('saveBtn').addEventListener('click', function () {
+            const income = document.getElementById('income').value || 0;
+            const expenses = document.getElementById('expenses').value || 0;
+            const debts = document.getElementById('debts').value || 0;
+
+            const data = {
+                income: parseFloat(income),
+                expenses: parseFloat(expenses),
+                debts: parseFloat(debts),
+            };
+
+            // Here you can add your logic to send data to the dashboard or save it
+            showNotification('Data saved successfully!');
         });
 
-        function loadData() {
-            const dataString = localStorage.getItem('financialData');
-            const initialData = { pemasukan: [], pengeluaran: [], utang: [], emas: [], tabunganRupiah: [] };
-            return dataString ? { ...initialData, ...JSON.parse(dataString) } : initialData;
-        }
-
-        function saveData(data) {
-            localStorage.setItem('financialData', JSON.stringify(data));
-            // Trigger dashboard to reload data if it's open
-            if (window.opener && typeof window.opener.loadDataAndRender === 'function') {
-                window.opener.loadDataAndRender();
-            }
-        }
-
-        function addEntry(type) {
-            const amountInput = document.getElementById(`${type}Amount`);
-            const descriptionInput = document.getElementById(`${type}Description`);
-            const dateInput = document.getElementById(`${type}Date`);
-
-            const amount = parseFloat(amountInput.value);
-            const description = descriptionInput.value.trim();
-            const date = dateInput.value;
-
-            if (isNaN(amount) || amount < 0) {
-                showNotification('Jumlah harus berupa angka positif atau nol.', 'error');
-                return;
-            }
-            if (!description) {
-                showNotification('Deskripsi tidak boleh kosong.', 'error');
-                return;
-            }
-            if (!date) {
-                showNotification('Tanggal tidak boleh kosong.', 'error');
-                return;
-            }
-
-            const data = loadData();
-            data[type].push({ amount: amount, description: description, date: date });
-            saveData(data);
-            showNotification(`${type.charAt(0).toUpperCase() + type.slice(1)} berhasil ditambahkan!`, 'success');
-
-            // Clear form fields
-            amountInput.value = '';
-            descriptionInput.value = '';
-            dateInput.value = '';
-        }
-
-        function showNotification(message, type = 'success') {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = `notification show ${type}`; // Add type class
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
+        // Navigate back to dashboard
+        document.getElementById('navigateBtn').addEventListener('click', function () {
+            window.location.href = 'index.html';
+        });
     </script>
 </body>
 </html>
