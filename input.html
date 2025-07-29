@@ -22,6 +22,18 @@
             </ul>
         </div>
 
+        <h2>Pilih Bulan Anggaran</h2>
+        <div class="month-year-selector">
+            <label for="month_select">Bulan:</label>
+            <select id="month_select"></select>
+
+            <label for="year_input">Tahun:</label>
+            <input type="number" id="year_input" min="2000" max="2100" value="2025">
+            <button class="btn" onclick="loadDataForSelectedMonth()">Muat Data Bulan</button>
+        </div>
+        <div class="loading-indicator" id="loading_indicator_input">Memuat data...</div>
+
+
         <h2>Formulir Penginputan Anggaran</h2>
 
         <div class="form-section">
@@ -61,6 +73,7 @@
 
         <h2>Pengeluaran Bulanan</h2>
         <div class="form-section">
+            <!-- TRANSPORTASI -->
             <div class="form-group">
                 <h3>TRANSPORTASI</h3>
                 <label for="trans_bensin_proj">Bensin (Proyeksi)</label>
@@ -79,6 +92,7 @@
                 <input type="number" id="trans_tol_actual" value="0">
             </div>
 
+            <!-- UTILITAS -->
             <div class="form-group">
                 <h3>UTILITAS</h3>
                 <label for="util_listrik_proj">Listrik (Proyeksi)</label>
@@ -97,6 +111,7 @@
                 <input type="number" id="util_internet_actual" value="0">
             </div>
 
+            <!-- KOMUNIKASI -->
             <div class="form-group">
                 <h3>KOMUNIKASI</h3>
                 <label for="kom_pulsa_proj">Pulsa HP (Proyeksi)</label>
@@ -105,6 +120,7 @@
                 <input type="number" id="kom_pulsa_actual" value="0">
             </div>
 
+            <!-- ASURANSI -->
             <div class="form-group">
                 <h3>ASURANSI</h3>
                 <label for="asuransi_admin_bca_proj">Admin BCA (Proyeksi)</label>
@@ -113,6 +129,7 @@
                 <input type="number" id="asuransi_admin_bca_actual" value="0">
             </div>
 
+            <!-- MAKANAN -->
             <div class="form-group">
                 <h3>MAKANAN</h3>
                 <label for="makan_bahan_proj">Bahan Makanan (Pasar) (Proyeksi)</label>
@@ -131,6 +148,7 @@
                 <input type="number" id="makan_gas_actual" value="0">
             </div>
 
+            <!-- PELIHARAAN -->
             <div class="form-group">
                 <h3>PELIHARAAN</h3>
                 <label for="peliharaan_proj">Pengeluaran Peliharaan (Proyeksi)</label>
@@ -139,6 +157,7 @@
                 <input type="number" id="peliharaan_actual" value="0">
             </div>
 
+            <!-- TABUNGAN ATAU INVESTASI -->
             <div class="form-group">
                 <h3>TABUNGAN / INVESTASI</h3>
                 <label for="tabung_tabungan_proj">Tabungan (Proyeksi)</label>
@@ -147,6 +166,7 @@
                 <input type="number" id="tabung_tabungan_actual" value="0">
             </div>
 
+            <!-- HADIAH DAN DONASI -->
             <div class="form-group">
                 <h3>HADIAH DAN DONASI</h3>
                 <label for="hadiah_kasih_mama_proj">Kasih Mama (Proyeksi)</label>
@@ -155,6 +175,7 @@
                 <input type="number" id="hadiah_kasih_mama_actual" value="0">
             </div>
 
+            <!-- Tambahan Hiburan / Lain-lain -->
             <div class="form-group">
                 <h3>TAMBAHAN HIBURAN / LAIN-LAIN</h3>
                 <label for="hiburan_proj">Pengeluaran Hiburan (Proyeksi)</label>
@@ -163,6 +184,7 @@
                 <input type="number" id="hiburan_actual" value="0">
             </div>
 
+            <!-- PERAWATAN PRIBADI -->
             <div class="form-group">
                 <h3>PERAWATAN PRIBADI</h3>
                 <label for="perawatan_proj">Pengeluaran Perawatan (Proyeksi)</label>
@@ -171,6 +193,7 @@
                 <input type="number" id="perawatan_actual" value="0">
             </div>
 
+            <!-- HUKUM -->
             <div class="form-group">
                 <h3>HUKUM</h3>
                 <label for="hukum_proj">Pengeluaran Hukum (Proyeksi)</label>
@@ -182,10 +205,11 @@
         </div>
 
         <div class="button-group">
-            <button class="btn" onclick="saveData()">Simpan & Lihat Dashboard</button>
+            <button class="btn" onclick="saveData()">Simpan Anggaran</button>
+            <a href="index.html" class="btn">Lihat Dashboard</a>
         </div>
     </div>
 
-    <script src="input.js"></script>
+    <script type="module" src="input.js"></script>
 </body>
 </html>

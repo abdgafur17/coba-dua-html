@@ -3,11 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Anggaran Bulanan</title> <link rel="stylesheet" href="style.css">
+    <title>Dashboard Anggaran Bulanan</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>Dashboard Anggaran Bulanan</h1>
+
+        <h2>Pilih Bulan Anggaran</h2>
+        <div class="month-year-selector">
+            <label for="month_select_dashboard">Bulan:</label>
+            <select id="month_select_dashboard"></select>
+
+            <label for="year_input_dashboard">Tahun:</label>
+            <input type="number" id="year_input_dashboard" min="2000" max="2100" value="2025">
+            <button class="btn" onclick="loadAndDisplayData()">Muat Data Bulan</button>
+        </div>
+        <div class="loading-indicator" id="loading_indicator_dashboard">Memuat data...</div>
+
+        <div class="log-note" id="last_updated_note"></div>
 
         <h2>Ringkasan Saldo</h2>
         <div class="summary-cards">
@@ -26,333 +40,351 @@
         </div>
 
         <h2>Pendapatan</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Kategori</th>
-                    <th>Proyeksi</th>
-                    <th>Aktual</th>
-                    <th>Selisih</th>
-                </tr>
-            </thead>
-            <tbody id="income_table_body">
-                <tr>
-                    <td>Pendapatan 1</td>
-                    <td id="display_proj_income1">Rp 0</td>
-                    <td id="display_actual_income1">Rp 0</td>
-                    <td id="diff_income1" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr>
-                    <td>Pendapatan Tambahan</td>
-                    <td id="display_proj_additional_income">Rp 0</td>
-                    <td id="display_actual_additional_income">Rp 0</td>
-                    <td id="diff_additional_income" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr>
-                    <td>Saldo Bank Mandiri</td>
-                    <td>-</td>
-                    <td id="display_actual_mandiri_balance">Rp 0</td>
-                    <td>-</td>
-                </tr>
-                <tr class="total-row">
-                    <td><strong>Total Pendapatan</strong></td>
-                    <td id="display_total_proj_income">Rp 0</td>
-                    <td id="display_total_actual_income">Rp 0</td>
-                    <td id="diff_total_income" class="diff-neutral">Rp 0</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kategori</th>
+                        <th>Proyeksi</th>
+                        <th>Aktual</th>
+                        <th>Selisih</th>
+                    </tr>
+                </thead>
+                <tbody id="income_table_body">
+                    <tr>
+                        <td>Pendapatan 1</td>
+                        <td id="display_proj_income1">Rp 0</td>
+                        <td id="display_actual_income1">Rp 0</td>
+                        <td id="diff_income1" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr>
+                        <td>Pendapatan Tambahan</td>
+                        <td id="display_proj_additional_income">Rp 0</td>
+                        <td id="display_actual_additional_income">Rp 0</td>
+                        <td id="diff_additional_income" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr>
+                        <td>Saldo Bank Mandiri</td>
+                        <td>-</td>
+                        <td id="display_actual_mandiri_balance">Rp 0</td>
+                        <td>-</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>Total Pendapatan</strong></td>
+                        <td id="display_total_proj_income">Rp 0</td>
+                        <td id="display_total_actual_income">Rp 0</td>
+                        <td id="diff_total_income" class="diff-neutral">Rp 0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <h2>Saldo Awal</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Kategori</th>
-                    <th>Jumlah</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Uang Dana</td>
-                    <td id="display_uang_dana">Rp 0</td>
-                </tr>
-                <tr>
-                    <td>Uang di BCA</td>
-                    <td id="display_uang_bca">Rp 0</td>
-                </tr>
-                <tr>
-                    <td>Real Duit Aktual</td>
-                    <td id="display_real_duit_aktual">Rp 0</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kategori</th>
+                        <th>Jumlah</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Uang Dana</td>
+                        <td id="display_uang_dana">Rp 0</td>
+                    </tr>
+                    <tr>
+                        <td>Uang di BCA</td>
+                        <td id="display_uang_bca">Rp 0</td>
+                    </tr>
+                    <tr>
+                        <td>Real Duit Aktual</td>
+                        <td id="display_real_duit_aktual">Rp 0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <h2>Pengeluaran</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Kategori</th>
-                    <th>Item</th>
-                    <th>Proyeksi Biaya</th>
-                    <th>Biaya Aktual</th>
-                    <th>Selisih</th>
-                </tr>
-            </thead>
-            <tbody id="expense_table_body">
-                <tr class="subtotal-row">
-                    <td colspan="5"><strong>TRANSPORTASI</strong></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Bensin</td>
-                    <td id="display_trans_bensin_proj">Rp 0</td>
-                    <td id="display_trans_bensin_actual">Rp 0</td>
-                    <td id="diff_trans_bensin" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Parkir</td>
-                    <td id="display_trans_parkir_proj">Rp 0</td>
-                    <td id="display_trans_parkir_actual">Rp 0</td>
-                    <td id="diff_trans_parkir" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Tol</td>
-                    <td id="display_trans_tol_proj">Rp 0</td>
-                    <td id="display_trans_tol_actual">Rp 0</td>
-                    <td id="diff_trans_tol" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr class="subtotal-row">
-                    <td></td>
-                    <td>Subtotal</td>
-                    <td id="display_total_trans_proj">Rp 0</td>
-                    <td id="display_total_trans_actual">Rp 0</td>
-                    <td id="diff_total_trans" class="diff-neutral">Rp 0</td>
-                </tr>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kategori</th>
+                        <th>Item</th>
+                        <th>Proyeksi Biaya</th>
+                        <th>Biaya Aktual</th>
+                        <th>Selisih</th>
+                    </tr>
+                </thead>
+                <tbody id="expense_table_body">
+                    <!-- TRANSPORTASI -->
+                    <tr class="subtotal-row">
+                        <td colspan="5"><strong>TRANSPORTASI</strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Bensin</td>
+                        <td id="display_trans_bensin_proj">Rp 0</td>
+                        <td id="display_trans_bensin_actual">Rp 0</td>
+                        <td id="diff_trans_bensin" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Parkir</td>
+                        <td id="display_trans_parkir_proj">Rp 0</td>
+                        <td id="display_trans_parkir_actual">Rp 0</td>
+                        <td id="diff_trans_parkir" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Tol</td>
+                        <td id="display_trans_tol_proj">Rp 0</td>
+                        <td id="display_trans_tol_actual">Rp 0</td>
+                        <td id="diff_trans_tol" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td></td>
+                        <td>Subtotal</td>
+                        <td id="display_total_trans_proj">Rp 0</td>
+                        <td id="display_total_trans_actual">Rp 0</td>
+                        <td id="diff_total_trans" class="diff-neutral">Rp 0</td>
+                    </tr>
 
-                <tr class="subtotal-row">
-                    <td colspan="5"><strong>UTILITAS</strong></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Listrik</td>
-                    <td id="display_util_listrik_proj">Rp 0</td>
-                    <td id="display_util_listrik_actual">Rp 0</td>
-                    <td id="diff_util_listrik" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Air</td>
-                    <td id="display_util_air_proj">Rp 0</td>
-                    <td id="display_util_air_actual">Rp 0</td>
-                    <td id="diff_util_air" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Internet</td>
-                    <td id="display_util_internet_proj">Rp 0</td>
-                    <td id="display_util_internet_actual">Rp 0</td>
-                    <td id="diff_util_internet" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr class="subtotal-row">
-                    <td></td>
-                    <td>Subtotal</td>
-                    <td id="display_total_util_proj">Rp 0</td>
-                    <td id="display_total_util_actual">Rp 0</td>
-                    <td id="diff_total_util" class="diff-neutral">Rp 0</td>
-                </tr>
+                    <!-- UTILITAS -->
+                    <tr class="subtotal-row">
+                        <td colspan="5"><strong>UTILITAS</strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Listrik</td>
+                        <td id="display_util_listrik_proj">Rp 0</td>
+                        <td id="display_util_listrik_actual">Rp 0</td>
+                        <td id="diff_util_listrik" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Air</td>
+                        <td id="display_util_air_proj">Rp 0</td>
+                        <td id="display_util_air_actual">Rp 0</td>
+                        <td id="diff_util_air" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Internet</td>
+                        <td id="display_util_internet_proj">Rp 0</td>
+                        <td id="display_util_internet_actual">Rp 0</td>
+                        <td id="diff_util_internet" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td></td>
+                        <td>Subtotal</td>
+                        <td id="display_total_util_proj">Rp 0</td>
+                        <td id="display_total_util_actual">Rp 0</td>
+                        <td id="diff_total_util" class="diff-neutral">Rp 0</td>
+                    </tr>
 
-                <tr class="subtotal-row">
-                    <td colspan="5"><strong>KOMUNIKASI</strong></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Pulsa HP</td>
-                    <td id="display_kom_pulsa_proj">Rp 0</td>
-                    <td id="display_kom_pulsa_actual">Rp 0</td>
-                    <td id="diff_kom_pulsa" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr class="subtotal-row">
-                    <td></td>
-                    <td>Subtotal</td>
-                    <td id="display_total_kom_proj">Rp 0</td>
-                    <td id="display_total_kom_actual">Rp 0</td>
-                    <td id="diff_total_kom" class="diff-neutral">Rp 0</td>
-                </tr>
+                    <!-- KOMUNIKASI -->
+                    <tr class="subtotal-row">
+                        <td colspan="5"><strong>KOMUNIKASI</strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Pulsa HP</td>
+                        <td id="display_kom_pulsa_proj">Rp 0</td>
+                        <td id="display_kom_pulsa_actual">Rp 0</td>
+                        <td id="diff_kom_pulsa" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td></td>
+                        <td>Subtotal</td>
+                        <td id="display_total_kom_proj">Rp 0</td>
+                        <td id="display_total_kom_actual">Rp 0</td>
+                        <td id="diff_total_kom" class="diff-neutral">Rp 0</td>
+                    </tr>
 
-                <tr class="subtotal-row">
-                    <td colspan="5"><strong>ASURANSI</strong></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Admin BCA</td>
-                    <td id="display_asuransi_admin_bca_proj">Rp 0</td>
-                    <td id="display_asuransi_admin_bca_actual">Rp 0</td>
-                    <td id="diff_asuransi_admin_bca" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr class="subtotal-row">
-                    <td></td>
-                    <td>Subtotal</td>
-                    <td id="display_total_asuransi_proj">Rp 0</td>
-                    <td id="display_total_asuransi_actual">Rp 0</td>
-                    <td id="diff_total_asuransi" class="diff-neutral">Rp 0</td>
-                </tr>
+                    <!-- ASURANSI -->
+                    <tr class="subtotal-row">
+                        <td colspan="5"><strong>ASURANSI</strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Admin BCA</td>
+                        <td id="display_asuransi_admin_bca_proj">Rp 0</td>
+                        <td id="display_asuransi_admin_bca_actual">Rp 0</td>
+                        <td id="diff_asuransi_admin_bca" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td></td>
+                        <td>Subtotal</td>
+                        <td id="display_total_asuransi_proj">Rp 0</td>
+                        <td id="display_total_asuransi_actual">Rp 0</td>
+                        <td id="diff_total_asuransi" class="diff-neutral">Rp 0</td>
+                    </tr>
 
-                <tr class="subtotal-row">
-                    <td colspan="5"><strong>MAKANAN</strong></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Bahan Makanan (Pasar)</td>
-                    <td id="display_makan_bahan_proj">Rp 0</td>
-                    <td id="display_makan_bahan_actual">Rp 0</td>
-                    <td id="diff_makan_bahan" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Belanja Bulanan</td>
-                    <td id="display_makan_belanja_proj">Rp 0</td>
-                    <td id="display_makan_belanja_actual">Rp 0</td>
-                    <td id="diff_makan_belanja" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Gas + Air leminerale</td>
-                    <td id="display_makan_gas_proj">Rp 0</td>
-                    <td id="display_makan_gas_actual">Rp 0</td>
-                    <td id="diff_makan_gas" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr class="subtotal-row">
-                    <td></td>
-                    <td>Subtotal</td>
-                    <td id="display_total_makan_proj">Rp 0</td>
-                    <td id="display_total_makan_actual">Rp 0</td>
-                    <td id="diff_total_makan" class="diff-neutral">Rp 0</td>
-                </tr>
+                    <!-- MAKANAN -->
+                    <tr class="subtotal-row">
+                        <td colspan="5"><strong>MAKANAN</strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Bahan Makanan (Pasar)</td>
+                        <td id="display_makan_bahan_proj">Rp 0</td>
+                        <td id="display_makan_bahan_actual">Rp 0</td>
+                        <td id="diff_makan_bahan" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Belanja Bulanan</td>
+                        <td id="display_makan_belanja_proj">Rp 0</td>
+                        <td id="display_makan_belanja_actual">Rp 0</td>
+                        <td id="diff_makan_belanja" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Gas + Air leminerale</td>
+                        <td id="display_makan_gas_proj">Rp 0</td>
+                        <td id="display_makan_gas_actual">Rp 0</td>
+                        <td id="diff_makan_gas" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td></td>
+                        <td>Subtotal</td>
+                        <td id="display_total_makan_proj">Rp 0</td>
+                        <td id="display_total_makan_actual">Rp 0</td>
+                        <td id="diff_total_makan" class="diff-neutral">Rp 0</td>
+                    </tr>
 
-                <tr class="subtotal-row">
-                    <td colspan="5"><strong>PELIHARAAN</strong></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Pengeluaran Peliharaan</td>
-                    <td id="display_peliharaan_proj">Rp 0</td>
-                    <td id="display_peliharaan_actual">Rp 0</td>
-                    <td id="diff_peliharaan" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr class="subtotal-row">
-                    <td></td>
-                    <td>Subtotal</td>
-                    <td id="display_total_peliharaan_proj">Rp 0</td>
-                    <td id="display_total_peliharaan_actual">Rp 0</td>
-                    <td id="diff_total_peliharaan" class="diff-neutral">Rp 0</td>
-                </tr>
+                    <!-- PELIHARAAN -->
+                    <tr class="subtotal-row">
+                        <td colspan="5"><strong>PELIHARAAN</strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Pengeluaran Peliharaan</td>
+                        <td id="display_peliharaan_proj">Rp 0</td>
+                        <td id="display_peliharaan_actual">Rp 0</td>
+                        <td id="diff_peliharaan" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td></td>
+                        <td>Subtotal</td>
+                        <td id="display_total_peliharaan_proj">Rp 0</td>
+                        <td id="display_total_peliharaan_actual">Rp 0</td>
+                        <td id="diff_total_peliharaan" class="diff-neutral">Rp 0</td>
+                    </tr>
 
-                <tr class="subtotal-row">
-                    <td colspan="5"><strong>TABUNGAN / INVESTASI</strong></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Tabungan</td>
-                    <td id="display_tabung_tabungan_proj">Rp 0</td>
-                    <td id="display_tabung_tabungan_actual">Rp 0</td>
-                    <td id="diff_tabung_tabungan" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr class="subtotal-row">
-                    <td></td>
-                    <td>Subtotal</td>
-                    <td id="display_total_tabung_proj">Rp 0</td>
-                    <td id="display_total_tabung_actual">Rp 0</td>
-                    <td id="diff_total_tabung" class="diff-neutral">Rp 0</td>
-                </tr>
+                    <!-- TABUNGAN ATAU INVESTASI -->
+                    <tr class="subtotal-row">
+                        <td colspan="5"><strong>TABUNGAN / INVESTASI</strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Tabungan</td>
+                        <td id="display_tabung_tabungan_proj">Rp 0</td>
+                        <td id="display_tabung_tabungan_actual">Rp 0</td>
+                        <td id="diff_tabung_tabungan" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td></td>
+                        <td>Subtotal</td>
+                        <td id="display_total_tabung_proj">Rp 0</td>
+                        <td id="display_total_tabung_actual">Rp 0</td>
+                        <td id="diff_total_tabung" class="diff-neutral">Rp 0</td>
+                    </tr>
 
-                <tr class="subtotal-row">
-                    <td colspan="5"><strong>HADIAH DAN DONASI</strong></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Kasih Mama</td>
-                    <td id="display_hadiah_kasih_mama_proj">Rp 0</td>
-                    <td id="display_hadiah_kasih_mama_actual">Rp 0</td>
-                    <td id="diff_hadiah_kasih_mama" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr class="subtotal-row">
-                    <td></td>
-                    <td>Subtotal</td>
-                    <td id="display_total_hadiah_proj">Rp 0</td>
-                    <td id="display_total_hadiah_actual">Rp 0</td>
-                    <td id="diff_total_hadiah" class="diff-neutral">Rp 0</td>
-                </tr>
+                    <!-- HADIAH DAN DONASI -->
+                    <tr class="subtotal-row">
+                        <td colspan="5"><strong>HADIAH DAN DONASI</strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Kasih Mama</td>
+                        <td id="display_hadiah_kasih_mama_proj">Rp 0</td>
+                        <td id="display_hadiah_kasih_mama_actual">Rp 0</td>
+                        <td id="diff_hadiah_kasih_mama" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td></td>
+                        <td>Subtotal</td>
+                        <td id="display_total_hadiah_proj">Rp 0</td>
+                        <td id="display_total_hadiah_actual">Rp 0</td>
+                        <td id="diff_total_hadiah" class="diff-neutral">Rp 0</td>
+                    </tr>
 
-                <tr class="subtotal-row">
-                    <td colspan="5"><strong>TAMBAHAN HIBURAN / LAIN-LAIN</strong></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Pengeluaran Hiburan</td>
-                    <td id="display_hiburan_proj">Rp 0</td>
-                    <td id="display_hiburan_actual">Rp 0</td>
-                    <td id="diff_hiburan" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr class="subtotal-row">
-                    <td></td>
-                    <td>Subtotal</td>
-                    <td id="display_total_hiburan_proj">Rp 0</td>
-                    <td id="display_total_hiburan_actual">Rp 0</td>
-                    <td id="diff_total_hiburan" class="diff-neutral">Rp 0</td>
-                </tr>
+                    <!-- Tambahan Hiburan / Lain-lain -->
+                    <tr class="subtotal-row">
+                        <td colspan="5"><strong>TAMBAHAN HIBURAN / LAIN-LAIN</strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Pengeluaran Hiburan</td>
+                        <td id="display_hiburan_proj">Rp 0</td>
+                        <td id="display_hiburan_actual">Rp 0</td>
+                        <td id="diff_hiburan" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td></td>
+                        <td>Subtotal</td>
+                        <td id="display_total_hiburan_proj">Rp 0</td>
+                        <td id="display_total_hiburan_actual">Rp 0</td>
+                        <td id="diff_total_hiburan" class="diff-neutral">Rp 0</td>
+                    </tr>
 
-                <tr class="subtotal-row">
-                    <td colspan="5"><strong>PERAWATAN PRIBADI</strong></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Pengeluaran Perawatan</td>
-                    <td id="display_perawatan_proj">Rp 0</td>
-                    <td id="display_perawatan_actual">Rp 0</td>
-                    <td id="diff_perawatan" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr class="subtotal-row">
-                    <td></td>
-                    <td>Subtotal</td>
-                    <td id="display_total_perawatan_proj">Rp 0</td>
-                    <td id="display_total_perawatan_actual">Rp 0</td>
-                    <td id="diff_total_perawatan" class="diff-neutral">Rp 0</td>
-                </tr>
+                    <!-- PERAWATAN PRIBADI -->
+                    <tr class="subtotal-row">
+                        <td colspan="5"><strong>PERAWATAN PRIBADI</strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Pengeluaran Perawatan</td>
+                        <td id="display_perawatan_proj">Rp 0</td>
+                        <td id="display_perawatan_actual">Rp 0</td>
+                        <td id="diff_perawatan" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td></td>
+                        <td>Subtotal</td>
+                        <td id="display_total_perawatan_proj">Rp 0</td>
+                        <td id="display_total_perawatan_actual">Rp 0</td>
+                        <td id="diff_total_perawatan" class="diff-neutral">Rp 0</td>
+                    </tr>
 
-                <tr class="subtotal-row">
-                    <td colspan="5"><strong>HUKUM</strong></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Pengeluaran Hukum</td>
-                    <td id="display_hukum_proj">Rp 0</td>
-                    <td id="display_hukum_actual">Rp 0</td>
-                    <td id="diff_hukum" class="diff-neutral">Rp 0</td>
-                </tr>
-                <tr class="subtotal-row">
-                    <td></td>
-                    <td>Subtotal</td>
-                    <td id="display_total_hukum_proj">Rp 0</td>
-                    <td id="display_total_hukum_actual">Rp 0</td>
-                    <td id="diff_total_hukum" class="diff-neutral">Rp 0</td>
-                </tr>
+                    <!-- HUKUM -->
+                    <tr class="subtotal-row">
+                        <td colspan="5"><strong>HUKUM</strong></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Pengeluaran Hukum</td>
+                        <td id="display_hukum_proj">Rp 0</td>
+                        <td id="display_hukum_actual">Rp 0</td>
+                        <td id="diff_hukum" class="diff-neutral">Rp 0</td>
+                    </tr>
+                    <tr class="subtotal-row">
+                        <td></td>
+                        <td>Subtotal</td>
+                        <td id="display_total_hukum_proj">Rp 0</td>
+                        <td id="display_total_hukum_actual">Rp 0</td>
+                        <td id="diff_total_hukum" class="diff-neutral">Rp 0</td>
+                    </tr>
 
-                <tr class="total-row">
-                    <td colspan="2"><strong>TOTAL PENGELUARAN KESELURUHAN</strong></td>
-                    <td id="display_grand_total_proj_expenses">Rp 0</td>
-                    <td id="display_grand_total_actual_expenses">Rp 0</td>
-                    <td id="diff_grand_total_expenses" class="diff-neutral">Rp 0</td>
-                </tr>
-            </tbody>
-        </table>
+                    <!-- Overall Total Expenses -->
+                    <tr class="total-row">
+                        <td colspan="2"><strong>TOTAL PENGELUARAN KESELURUHAN</strong></td>
+                        <td id="display_grand_total_proj_expenses">Rp 0</td>
+                        <td id="display_grand_total_actual_expenses">Rp 0</td>
+                        <td id="diff_grand_total_expenses" class="diff-neutral">Rp 0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <div class="back-btn-container">
             <a href="input.html" class="btn">Kembali ke Input</a>
         </div>
     </div>
 
-    <script src="dashboard.js"></script>
+    <script type="module" src="dashboard.js"></script>
 </body>
 </html>
