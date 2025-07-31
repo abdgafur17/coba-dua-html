@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Anggaran Keluarga</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4b6cb7;
+            --primary-dark: #182848;
+            --secondary: #28a745;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --border: #dee2e6;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+            min-height: 100vh;
+            font-size: 15px;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 18px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-circle {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        
+        .logo-circle i {
+            color: white;
+            font-size: 18px;
+        }
+        
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .back-button {
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        .back-button i {
+            margin-right: 8px;
+        }
+        
+        .app-container {
+            padding: 15px;
+            flex: 1;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 18px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+        }
+        
+        h2 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+            color: var(--primary);
+            background: #f0f5ff;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 16px;
+        }
+        
+        .history-list {
+            margin-top: 15px;
+        }
+        
+        .history-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--primary);
+            transition: all 0.2s;
+        }
+        
+        .history-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .history-date {
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 1rem;
+        }
+        
+        .history-amount {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .positive {
+            color: var(--secondary);
+        }
+        
+        .negative {
+            color: var(--danger);
+        }
+        
+        .history-details {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+        }
+        
+        .no-data i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ced4da;
+        }
+        
+        .no-data p {
+            margin-top: 10px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            font-weight: 500;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(75, 108, 183, 0.25);
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(75, 108, 183, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 15px;
+            color: var(--gray);
+            font-size: 0.85rem;
+            background: linear-gradient(to right, #f8f9fa, #f0f4f9);
+            margin-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+        
+        /* Print styles */
+        @media print {
+            .btn, footer, .back-button {
+                display: none;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            header {
+                background: white;
+                color: var(--dark);
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-circle">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div class="logo-text">Riwayat Anggaran</div>
+                </div>
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </a>
+            </div>
+        </header>
+        
+        <div class="app-container">
+            <div class="card">
+                <h2><i class="fas fa-calendar-alt"></i> Riwayat Bulanan</h2>
+                
+                <div id="history-list" class="history-list">
+                    <!-- History items will be added here dynamically -->
+                </div>
+                
+                <button class="btn" onclick="clearHistory()">
+                    <i class="fas fa-trash-alt"></i> Hapus Semua Riwayat
+                </button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 Anggaran Keluarga Sederhana | Data tersimpan di perangkat Anda</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Fungsi untuk memuat riwayat anggaran
+        function loadHistory() {
+            const historyContainer = document.getElementById('history-list');
+            const budgetHistory = JSON.parse(localStorage.getItem('budgetHistory')) || [];
+            
+            if (budgetHistory.length === 0) {
+                historyContainer.innerHTML = `
+                    <div class="no-data">
+                        <i class="fas fa-file-alt"></i>
+                        <h3>Belum Ada Data</h3>
+                        <p>Anda belum menyimpan anggaran bulanan</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Urutkan berdasarkan timestamp (dari yang terbaru)
+            budgetHistory.sort((a, b) => b.timestamp - a.timestamp);
+            
+            let historyHTML = '';
+            
+            budgetHistory.forEach((budget, index) => {
+                const isPositive = budget.remaining >= 0;
+                
+                historyHTML += `
+                    <div class="history-item" onclick="viewBudgetDetails(${index})">
+                        <div>
+                            <div class="history-date">${budget.month}</div>
+                            <div class="history-details">
+                                Pendapatan: ${formatCurrency(budget.income)} | 
+                                Pengeluaran: ${formatCurrency(budget.totalExpense)}
+                            </div>
+                        </div>
+                        <div class="history-amount ${isPositive ? 'positive' : 'negative'}">
+                            ${formatCurrency(budget.remaining)}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            historyContainer.innerHTML = historyHTML;
+        }
+        
+        // Fungsi untuk melihat detail anggaran
+        function viewBudgetDetails(index) {
+            const budgetHistory = JSON.parse(localStorage.getItem('budgetHistory')) || [];
+            
+            if (budgetHistory[index]) {
+                const budget = budgetHistory[index];
+                let details = `
+                    Detail Anggaran untuk ${budget.month}:
+                    ----------------------------------
+                    Pendapatan: ${formatCurrency(budget.income)}
+                    
+                    Pengeluaran Tetap:
+                    - Sewa Rumah: ${formatCurrency(budget.fixedExpenses.rent)}
+                    - Listrik: ${formatCurrency(budget.fixedExpenses.electricity)}
+                    - Air: ${formatCurrency(budget.fixedExpenses.water)}
+                    - Internet: ${formatCurrency(budget.fixedExpenses.internet)}
+                    Total Tetap: ${formatCurrency(budget.totalFixed)}
+                    
+                    Pengeluaran Variabel:
+                    - Transportasi: ${formatCurrency(budget.variableExpenses.transportation)}
+                    - Makanan: ${formatCurrency(budget.variableExpenses.food)}
+                    - Belanja: ${formatCurrency(budget.variableExpenses.shopping)}
+                    - Hiburan: ${formatCurrency(budget.variableExpenses.entertainment)}
+                    - Kesehatan: ${formatCurrency(budget.variableExpenses.health)}
+                    - Pendidikan: ${formatCurrency(budget.variableExpenses.education)}
+                    - Tabungan: ${formatCurrency(budget.variableExpenses.savings)}
+                    - Lain-lain: ${formatCurrency(budget.variableExpenses.other)}
+                    Total Variabel: ${formatCurrency(budget.totalVariable)}
+                    
+                    Total Pengeluaran: ${formatCurrency(budget.totalExpense)}
+                    Sisa Uang: ${formatCurrency(budget.remaining)}
+                `;
+                
+                alert(details);
+            }
+        }
+        
+        // Fungsi untuk menghapus riwayat
+        function clearHistory() {
+            if (confirm('Apakah Anda yakin ingin menghapus semua riwayat anggaran?')) {
+                localStorage.removeItem('budgetHistory');
+                loadHistory();
+            }
+        }
+        
+        // Fungsi untuk memformat mata uang
+        function formatCurrency(amount) {
+            return 'Rp ' + amount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+        
+        // Jalankan saat halaman dimuat
+        window.onload = function() {
+            loadHistory();
+        }
+    </script>
+</body>
+</html>
